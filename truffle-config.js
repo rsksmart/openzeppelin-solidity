@@ -14,11 +14,16 @@ const ropstenProvider = process.env.SOLIDITY_COVERAGE
   ? undefined
   : infuraProvider('ropsten');
 
-module.exports = {
+truffleOptions = {
   networks: {
     development: {
       host: 'localhost',
       port: 8545,
+      network_id: '*', // eslint-disable-line camelcase
+    },
+    rsk: {
+      host: 'localhost',
+      port: 4444,
       network_id: '*', // eslint-disable-line camelcase
     },
     ropsten: {
@@ -39,3 +44,14 @@ module.exports = {
     },
   },
 };
+
+if (process.argv.includes('--ci')) {
+  truffleOptions.mocha = {
+    reporter: "mocha-multi-reporters",
+    reporterOptions: {
+      reporterEnabled: "mocha-junit-reporter, spec",
+    },
+  };
+}
+
+module.exports = truffleOptions

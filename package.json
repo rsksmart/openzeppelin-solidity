@@ -8,7 +8,7 @@
     "test"
   ],
   "scripts": {
-    "test": "scripts/test.sh",
+    "test": "scripts/test-rskj.sh",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
     "lint:sol": "solium -d .",
@@ -50,6 +50,8 @@
     "eslint-plugin-standard": "^3.1.0",
     "ethjs-abi": "^0.2.1",
     "ganache-cli": "6.1.0",
+    "mocha-junit-reporter": "^1.18.0",
+    "mocha-multi-reporters": "^1.1.7",
     "solidity-coverage": "^0.5.4",
     "solium": "^1.1.8",
     "truffle": "^4.1.13",
