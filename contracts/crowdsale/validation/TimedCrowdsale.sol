@@ -51,6 +51,13 @@ contract TimedCrowdsale is Crowdsale {
   }
 
   /**
+   * @return the crowdsale closing time.
+   */
+  function blockTimestamp() public view returns(uint256) {
+    return block.timestamp;
+  }
+
+  /**
    * @return true if the crowdsale is open, false otherwise.
    */
   function isOpen() public view returns (bool) {

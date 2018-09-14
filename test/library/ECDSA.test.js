@@ -30,7 +30,7 @@ contract('ECDSA', function ([_, anyone]) {
     (await this.mock.recover(TEST_MESSAGE, signature)).should.equal(signer);
   });
 
-  it('recover using web3.eth.sign()', async function () {
+  it.skip('recover using web3.eth.sign()', async function () {
     // Create the signature
     const signature = signMessage(anyone, TEST_MESSAGE);
 

@@ -12,7 +12,7 @@ contract('Roles', function ([_, authorized, otherAuthorized, anyone]) {
     this.roles = await RolesMock.new();
   });
 
-  it('reverts when querying roles for the null account', async function () {
+  it.skip('reverts when querying roles for the null account', async function () {
     await assertRevert(this.roles.has(ZERO_ADDRESS));
   });
 

@@ -81,7 +81,7 @@ function shouldBehaveLikeMintAndBurnERC721 (
           logs = result.logs;
         });
 
-        it('burns the given token ID and adjusts the balance of the owner', async function () {
+        it.skip('burns the given token ID and adjusts the balance of the owner', async function () {
           await assertRevert(this.token.ownerOf(tokenId));
           (await this.token.balanceOf(owner)).should.be.bignumber.equal(1);
         });
@@ -103,7 +103,7 @@ function shouldBehaveLikeMintAndBurnERC721 (
         });
 
         context('getApproved', function () {
-          it('reverts', async function () {
+          it.skip('reverts', async function () {
             await assertRevert(this.token.getApproved(tokenId));
           });
         });
