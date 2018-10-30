@@ -14,8 +14,7 @@ require('chai')
 const TimedCrowdsale = artifacts.require('TimedCrowdsaleImpl');
 const SimpleToken = artifacts.require('SimpleToken');
 
-// TODO: check off by one error when using evm_increaseTime
-contract.skip('TimedCrowdsale', function ([_, investor, wallet, purchaser]) {
+contract('TimedCrowdsale', function ([_, investor, wallet, purchaser]) {
   const rate = new BigNumber(1);
   const value = ether(42);
   const tokenSupply = new BigNumber('1e22');

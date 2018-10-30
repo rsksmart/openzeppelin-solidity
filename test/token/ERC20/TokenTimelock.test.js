@@ -11,8 +11,7 @@ require('chai')
 const ERC20Mintable = artifacts.require('ERC20Mintable');
 const TokenTimelock = artifacts.require('TokenTimelock');
 
-// TODO: check off by one error when using evm_increaseTime
-contract.skip('TokenTimelock', function ([_, minter, beneficiary]) {
+contract('TokenTimelock', function ([_, minter, beneficiary]) {
   const amount = new BigNumber(100);
 
   context('with token', function () {

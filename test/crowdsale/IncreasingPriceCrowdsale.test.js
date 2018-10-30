@@ -13,8 +13,7 @@ require('chai')
 const IncreasingPriceCrowdsale = artifacts.require('IncreasingPriceCrowdsaleImpl');
 const SimpleToken = artifacts.require('SimpleToken');
 
-// TODO: check off by one error when using evm_increaseTime
-contract.skip('IncreasingPriceCrowdsale', function ([_, investor, wallet, purchaser]) {
+contract('IncreasingPriceCrowdsale', function ([_, investor, wallet, purchaser]) {
   const value = ether(1);
   const tokenSupply = new BigNumber('1e22');
 

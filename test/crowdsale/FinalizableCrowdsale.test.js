@@ -13,8 +13,7 @@ const should = require('chai')
 const FinalizableCrowdsale = artifacts.require('FinalizableCrowdsaleImpl');
 const ERC20 = artifacts.require('ERC20');
 
-// TODO: check off by one error when using evm_increaseTime
-contract.skip('FinalizableCrowdsale', function ([_, wallet, anyone]) {
+contract('FinalizableCrowdsale', function ([_, wallet, anyone]) {
   const rate = new BigNumber(1000);
 
   before(async function () {

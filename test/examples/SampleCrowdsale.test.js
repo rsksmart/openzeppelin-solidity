@@ -16,8 +16,7 @@ const should = require('chai')
 const SampleCrowdsale = artifacts.require('SampleCrowdsale');
 const SampleCrowdsaleToken = artifacts.require('SampleCrowdsaleToken');
 
-// TODO: check off by one error when using evm_increaseTime
-contract.skip('SampleCrowdsale', function ([_, deployer, owner, wallet, investor]) {
+contract('SampleCrowdsale', function ([_, deployer, owner, wallet, investor]) {
   const RATE = new BigNumber(10);
   const GOAL = ether(10);
   const CAP = ether(20);
