@@ -22,8 +22,8 @@
     "lint:sol": "solhint --max-warnings 0 \"contracts/**/*.sol\"",
     "prepare": "node scripts/prepare.js",
     "release": "scripts/release/release.sh",
-    "version": "scripts/release/version.sh",
-    "test": "scripts/test.sh"
+    "version": "scripts/release/update-changelog-release-date.js && scripts/release/update-ethpm-version.js",
+    "test": "scripts/test-rskj.sh"
   },
   "repository": {
     "type": "git",
@@ -59,6 +59,8 @@
     "http-server": "^0.11.1",
     "lodash.startcase": "^4.4.0",
     "micromatch": "^4.0.2",
+    "mocha-junit-reporter": "^1.18.0",
+    "mocha-multi-reporters": "^1.1.7",
     "nodemon": "^1.19.0",
     "openzeppelin-test-helpers": "^0.4",
     "solhint": "2.1.0",
