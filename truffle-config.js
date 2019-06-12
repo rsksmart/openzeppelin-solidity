@@ -11,7 +11,7 @@ const solcNightly = {
 
 const useSolcNightly = process.env.SOLC_NIGHTLY === 'true';
 
-module.exports = {
+truffleOptions = {
   networks: {
     development: {
       host: 'localhost',
@@ -25,9 +25,25 @@ module.exports = {
       gas: 0xfffffffffff,
       gasPrice: 0x01,
     },
+    rsk: {
+      host: 'localhost',
+      port: 4444,
+      network_id: '*', // eslint-disable-line camelcase
+    },
   },
 
   compilers: {
     solc: useSolcNightly ? solcNightly : solcStable,
   },
 };
+
+if (process.argv.includes('--ci')) {
+  truffleOptions.mocha = {
+    reporter: "mocha-multi-reporters",
+    reporterOptions: {
+      reporterEnabled: "mocha-junit-reporter, spec",
+    },
+  };
+}
+
+module.exports = truffleOptions
