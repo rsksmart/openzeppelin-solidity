@@ -3,7 +3,7 @@ const { BN, expectEvent, expectRevert, time } = require('openzeppelin-test-helpe
 const FinalizableCrowdsaleImpl = artifacts.require('FinalizableCrowdsaleImpl');
 const ERC20 = artifacts.require('ERC20');
 
-contract('FinalizableCrowdsale', function ([_, wallet, other]) {
+contract.skip('FinalizableCrowdsale', function ([_, wallet, other]) {
   const rate = new BN('1000');
 
   before(async function () {

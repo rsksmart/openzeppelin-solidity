@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const SampleCrowdsale = artifacts.require('SampleCrowdsale');
 const SampleCrowdsaleToken = artifacts.require('SampleCrowdsaleToken');
 
-contract('SampleCrowdsale', function ([_, deployer, owner, wallet, investor]) {
+contract.skip('SampleCrowdsale', function ([_, deployer, owner, wallet, investor]) {
   const RATE = new BN(10);
   const GOAL = ether('10');
   const CAP = ether('20');

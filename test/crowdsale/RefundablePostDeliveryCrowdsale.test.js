@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const RefundablePostDeliveryCrowdsaleImpl = artifacts.require('RefundablePostDeliveryCrowdsaleImpl');
 const SimpleToken = artifacts.require('SimpleToken');
 
-contract('RefundablePostDeliveryCrowdsale', function ([_, investor, wallet, purchaser]) {
+contract.skip('RefundablePostDeliveryCrowdsale', function ([_, investor, wallet, purchaser]) {
   const rate = new BN(1);
   const tokenSupply = new BN('10').pow(new BN('22'));
   const goal = ether('100');

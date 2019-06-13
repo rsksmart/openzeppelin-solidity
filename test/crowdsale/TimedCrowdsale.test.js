@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const TimedCrowdsaleImpl = artifacts.require('TimedCrowdsaleImpl');
 const SimpleToken = artifacts.require('SimpleToken');
 
-contract('TimedCrowdsale', function ([_, investor, wallet, purchaser]) {
+contract.skip('TimedCrowdsale', function ([_, investor, wallet, purchaser]) {
   const rate = new BN(1);
   const value = ether('42');
   const tokenSupply = new BN('10').pow(new BN('22'));
