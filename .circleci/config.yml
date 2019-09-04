@@ -27,5 +27,5 @@ jobs:
                 path: ~/Results
                 
             - store_artifacts:
-                path: ~/Results
-                destination: ~/Results
+                path: ~/Results/junit
+                destination: ~/Results/junit
