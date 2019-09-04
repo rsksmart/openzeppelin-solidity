@@ -19,22 +19,13 @@ jobs:
                 command: |
                     docker run -d --name rskj -e "miner.client.autoMine=true" rsksmart/rskj --regtest
                     docker run --name openzeppelin --network container:rskj rsksmart/openzeppelin npm test
-                    mkdir ~/junit
-                    docker cp openzeppelin:/openzeppelin/test-results.xml ~/junit/test-results.xml
+                    mkdir ~/Results
+                    mkdir ~/Results/junit
+                    docker cp openzeppelin:/openzeppelin/test-results.xml ~/Results/junit/test-results.xml
+            
             - store_test_results:
-                path: ~/junit
-
-workflows:
-    commit:
-        jobs:
-            - build
-    nightly:
-        triggers:
-            - schedule:
-                cron: "30 23 * * *"
-                filters:
-                    branches:
-                        only:
-                            - master_rsk
-        jobs:
-            - build
+                path: ~/Results
+                
+            - store_artifacts:
+                path: ~/Results
+                destination: ~/Results
