@@ -18,4 +18,4 @@ RUN ./configure.sh
 RUN ./gradlew clean build -x test
 RUN sha256sum rskj-core/build/libs/*
 
-ENTRYPOINT ["java", "-cp", "./rskj-core/build/libs/rskj-core-1.1.0-SNAPSHOT-all.jar", "co.rsk.Start"]
+ENTRYPOINT ["java", "-cp", "./rskj-core/build/libs/rskj-core-1.2.0-SNAPSHOT-all.jar", "co.rsk.Start"]
