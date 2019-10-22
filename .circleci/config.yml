@@ -50,6 +50,10 @@ jobs:
           path: ~/Results/junit
           destination: ~/Results/junit
 
+workflows:
+    commit:
+        jobs:
+            - build
 
 #version: 2.1
 #
