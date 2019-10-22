@@ -49,5 +49,15 @@ workflows:
     commit:
         jobs:
             - build
+    nightly:
+        triggers:
+            - schedule:
+                cron: "30 23 * * *"
+                filters:
+                    branches:
+                        only:
+                            - master_rsk
+        jobs:
+            - build
 
 
