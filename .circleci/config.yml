@@ -1,92 +1,40 @@
 version: 2.1
+
 jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
+    build:
+        docker:
+            - image: docker:stable-git
 
-    working_directory: ~/tmp
-
-    steps:
-      - checkout
-      - run:
-          name: Avoid hosts unknown for github
-          command: mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-      - run:
-          name: Clone and Build RSKj
-          command: |
-                    GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_fingerprint'
-                    git clone git@github.com:rsksmart/rskj.git ~/rsksmart/rskj
-                    cd ~/rsksmart/rskj/
-                    ./configure.sh
-                    ./gradlew clean build -x test
-
-      - run:
-          name: Prepare npm
-          command: |
-                    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-                    sudo apt update
-                    sudo apt-get install -y nodejs
-                    sudo apt install npm
-                    sudo apt install build-essential
-
-      - run:
-          name: Start RskJ & Run Tests
-          command: |
-                    npm ci
-                    java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-1.2.0-SNAPSHOT-all.jar co.rsk.Start --regtest nohup &               
-                    until nc -z 127.0.0.1 4444
-                    do
-                      echo "Waiting for RskJ..."
-                      sleep 1
-                    done
-                    npm test
-
-
-      - store_test_results:
-          path: ~/Results
-                
-      - store_artifacts:
-          path: ~/Results/junit
-          destination: ~/Results/junit
+        steps:
+            - checkout
+            - setup_remote_docker
+            - run:
+                name: Build OpenZeppelin
+                command: docker build -t rsksmart/openzeppelin . -f docker/Dockerfile
+            - run:
+                name: Build RSKj
+                command: docker build -t rsksmart/rskj https://github.com/rsksmart/rskj.git -f - < docker/Dockerfile-rskj
+            - run:
+                name: Run OpenZeppelin tests on RSKj
+                command: |
+                    docker run -d --name rskj -e "miner.client.autoMine=true" rsksmart/rskj --regtest
+                    docker run --name openzeppelin --network container:rskj rsksmart/openzeppelin npm test
+                    mkdir ~/junit
+                    docker cp openzeppelin:/openzeppelin/test-results.xml ~/junit/test-results.xml
+            - store_test_results:
+                path: ~/junit
 
 workflows:
     commit:
         jobs:
             - build
-
-#version: 2.1
-#
-#jobs:
-   # build:
-  #      docker:
- #           - image: docker:stable-git
-#
-        #steps:
-        #    - checkout
-        #    - setup_remote_docker
-       #     - run:
-      #          name: Build OpenZeppelin
-     #           command: docker build -t rsksmart/openzeppelin . -f docker/Dockerfile
-    #        - run:
-   #             name: Build RSKj
-  #              command: docker build -t rsksmart/rskj https://github.com/rsksmart/rskj.git -f - < docker/Dockerfile-rskj
- #           - run:
-#                name: Run OpenZeppelin tests on RSKj
-#                command: |
-#                    docker run -d --name rskj -e "miner.client.autoMine=true" rsksmart/rskj --regtest
-#                    docker run --name openzeppelin --network container:rskj rsksmart/openzeppelin npm test
-#                    mkdir ~/Results
-#                    mkdir ~/Results/junit
-#                    docker cp openzeppelin:/openzeppelin/test-results.xml ~/Results/junit/test-results.xml
-#            
-#            - store_test_results:
-#                path: ~/Results
-#                
-#            - store_artifacts:
-#                path: ~/Results/junit
-#                destination: ~/Results/junit
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
+    nightly:
+        triggers:
+            - schedule:
+                cron: "30 23 * * *"
+                filters:
+                    branches:
+                        only:
+                            - master_rsk
+        jobs:
+            - build

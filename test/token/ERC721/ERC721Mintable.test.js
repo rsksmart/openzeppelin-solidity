@@ -4,7 +4,7 @@ const { shouldBehaveLikeMintAndBurnERC721 } = require('./ERC721MintBurn.behavior
 
 const ERC721MintableImpl = artifacts.require('ERC721MintableBurnableImpl.sol');
 
-contract('ERC721Mintable', function ([_, creator, ...accounts]) {
+contract.skip('ERC721Mintable', function ([_, creator, ...accounts]) {
   const minter = creator;
 
   beforeEach(async function () {

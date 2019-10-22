@@ -74,12 +74,12 @@ function shouldBehaveLikeMintAndBurnERC721 (
     });
 
     describe('safeMint', function () {
-      it('it can safely mint with data', async function () {
+      it.skip('it can safely mint with data', async function () {
         await this.token.methods['safeMint(address,uint256,bytes)'](...[newOwner, thirdTokenId, data],
           { from: minter });
       });
 
-      it('it can safely mint without data', async function () {
+      it.skip('it can safely mint without data', async function () {
         await this.token.methods['safeMint(address,uint256)'](...[newOwner, thirdTokenId],
           { from: minter });
       });

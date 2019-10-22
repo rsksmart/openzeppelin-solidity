@@ -6,7 +6,7 @@ const { shouldSupportInterfaces } = require('../../introspection/SupportsInterfa
 
 const ERC721FullMock = artifacts.require('ERC721FullMock.sol');
 
-contract('ERC721Full', function ([
+contract.skip('ERC721Full', function ([
   creator,
   ...accounts
 ]) {
