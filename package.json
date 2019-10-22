@@ -62,7 +62,7 @@
     "mocha-junit-reporter": "^1.18.0",
     "mocha-multi-reporters": "^1.1.7",
     "nodemon": "^1.19.0",
-    "openzeppelin-test-helpers": "^0.4",
+    "openzeppelin-test-helpers": "^0.4.3",
     "solhint": "2.1.0",
     "solidity-coverage": "github:rotcivegaf/solidity-coverage#5875f5b7bc74d447f3312c9c0e9fc7814b482477",
     "solidity-docgen": "^0.3.0-beta.4",
