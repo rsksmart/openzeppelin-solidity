@@ -57,6 +57,7 @@ workflows:
                     branches:
                         only:
                             - master_rsk
+                            - sandbox
         jobs:
             - build
 
