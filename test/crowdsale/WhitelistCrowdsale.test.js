@@ -41,7 +41,7 @@ contract('WhitelistCrowdsale', function ([_, wallet, whitelister, whitelisted, o
       await this.crowdsale.addWhitelisted(otherWhitelisted, { from: whitelister });
     });
 
-    it('accepts purchases with whitelisted beneficiaries', async function () {
+    it.skip('accepts purchases with whitelisted beneficiaries', async function () {
       await purchaseShouldSucceed(this.crowdsale, whitelisted, value);
       await purchaseShouldSucceed(this.crowdsale, otherWhitelisted, value);
     });
