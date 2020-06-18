@@ -1,7 +1,7 @@
 require('chai/register-should');
 
 const solcStable = {
-  version: '0.5.7',
+  version: '0.6.2',
 };
 
 const solcNightly = {
