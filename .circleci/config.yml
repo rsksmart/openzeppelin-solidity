@@ -48,6 +48,7 @@ workflows:
                     branches:
                         only:
                             - master_rsk
+                            - OZ-release-v3.3
         jobs:
             - build
 
