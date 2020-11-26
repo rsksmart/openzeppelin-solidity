@@ -20,7 +20,9 @@ jobs:
                     cd ~/rsksmart/rskj/
                     ./configure.sh
                     ./gradlew clean build -x test
-
+      - run:
+          name: Install Truffle
+          command: npm install -g truffle
       - run:
           name: Start RskJ & Run Tests
           command: |
