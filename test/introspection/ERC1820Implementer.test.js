@@ -1,33 +1,35 @@
-const { expectRevert, singletons } = require('openzeppelin-test-helpers');
-const { bufferToHex, keccak256 } = require('ethereumjs-util');
+const { expectRevert, singletons } = require('@openzeppelin/test-helpers');
+const { bufferToHex, keccakFromString } = require('ethereumjs-util');
 
 const { expect } = require('chai');
 
 const ERC1820ImplementerMock = artifacts.require('ERC1820ImplementerMock');
 
-contract.skip('ERC1820Implementer', function ([_, registryFunder, implementee, other]) {
-  const ERC1820_ACCEPT_MAGIC = bufferToHex(keccak256('ERC1820_ACCEPT_MAGIC'));
+contract.skip('ERC1820Implementer', function (accounts) {
+  const [ registryFunder, implementee, other ] = accounts;
+
+  const ERC1820_ACCEPT_MAGIC = bufferToHex(keccakFromString('ERC1820_ACCEPT_MAGIC'));
 
   beforeEach(async function () {
     this.implementer = await ERC1820ImplementerMock.new();
     this.registry = await singletons.ERC1820Registry(registryFunder);
 
-    this.interfaceA = bufferToHex(keccak256('interfaceA'));
-    this.interfaceB = bufferToHex(keccak256('interfaceB'));
+    this.interfaceA = bufferToHex(keccakFromString('interfaceA'));
+    this.interfaceB = bufferToHex(keccakFromString('interfaceB'));
   });
 
   context('with no registered interfaces', function () {
-    it('returns false when interface implementation is queried', async function () {
+    it.skip('returns false when interface implementation is queried', async function () {
       expect(await this.implementer.canImplementInterfaceForAddress(this.interfaceA, implementee))
         .to.not.equal(ERC1820_ACCEPT_MAGIC);
     });
 
-    it('reverts when attempting to set as implementer in the registry', async function () {
+    it.skip('reverts when attempting to set as implementer in the registry', async function () {
       await expectRevert(
         this.registry.setInterfaceImplementer(
-          implementee, this.interfaceA, this.implementer.address, { from: implementee }
+          implementee, this.interfaceA, this.implementer.address, { from: implementee },
         ),
-        'Does not implement the interface'
+        'Does not implement the interface',
       );
     });
   });
@@ -54,7 +56,7 @@ contract.skip('ERC1820Implementer', function ([_, registryFunder, implementee, o
 
     it('can be set as an implementer for supported interfaces in the registry', async function () {
       await this.registry.setInterfaceImplementer(
-        implementee, this.interfaceA, this.implementer.address, { from: implementee }
+        implementee, this.interfaceA, this.implementer.address, { from: implementee },
       );
 
       expect(await this.registry.getInterfaceImplementer(implementee, this.interfaceA))

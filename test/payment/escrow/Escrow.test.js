@@ -1,12 +1,14 @@
-require('openzeppelin-test-helpers');
+require('@openzeppelin/test-helpers');
 const { shouldBehaveLikeEscrow } = require('./Escrow.behavior');
 
 const Escrow = artifacts.require('Escrow');
 
-contract('Escrow', function ([_, primary, ...otherAccounts]) {
+contract('Escrow', function (accounts) {
+  const [ owner, ...otherAccounts ] = accounts;
+
   beforeEach(async function () {
-    this.escrow = await Escrow.new({ from: primary });
+    this.escrow = await Escrow.new({ from: owner });
   });
 
-  shouldBehaveLikeEscrow(primary, otherAccounts);
+  shouldBehaveLikeEscrow(owner, otherAccounts);
 });
