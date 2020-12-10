@@ -26,7 +26,7 @@ contract('GSNRecipientSignature', function (accounts) {
   });
 
   context('when constructor is called with a zero address', function () {
-    it.skip('fails when constructor called with a zero address', async function () {
+    it('fails when constructor called with a zero address', async function () {
       await expectRevert(
         GSNRecipientSignatureMock.new(
           ZERO_ADDRESS,
@@ -36,16 +36,16 @@ contract('GSNRecipientSignature', function (accounts) {
     });
   });
 
-  context.skip('when relay-called', function () {
+  context('when relay-called', function () {
     beforeEach(async function () {
       await gsn.fundRecipient(web3, { recipient: this.recipient.address });
     });
 
-    it.skip('rejects unsigned relay requests', async function () {
+    it('rejects unsigned relay requests', async function () {
       await gsn.expectError(this.recipient.mockFunction({ value: 0, useGSN: true }));
     });
 
-    it.skip('rejects relay requests where some parameters are signed', async function () {
+    it('rejects relay requests where some parameters are signed', async function () {
       const approveFunction = async (data) =>
         fixSignature(
           await web3.eth.sign(

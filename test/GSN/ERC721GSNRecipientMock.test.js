@@ -38,7 +38,7 @@ contract('ERC721GSNRecipient (integration)', function (accounts) {
       await gsn.fundRecipient(web3, { recipient: this.token.address });
     });
 
-    it.skip('sender can mint tokens', async function () {
+    it('sender can mint tokens', async function () {
       const approveFunction = async (data) =>
         fixSignature(
           await web3.eth.sign(

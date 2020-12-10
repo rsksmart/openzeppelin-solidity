@@ -18,7 +18,7 @@ contract('TokenTimelock', function (accounts) {
       this.token = await ERC20Mock.new(name, symbol, beneficiary, 0); // We're not using the preminted tokens
     });
 
-    it.skip('rejects a release time in the past', async function () {
+    it('rejects a release time in the past', async function () {
       const pastReleaseTime = (await time.latest()).sub(time.duration.years(1));
       await expectRevert(
         TokenTimelock.new(this.token.address, beneficiary, pastReleaseTime),
@@ -39,28 +39,28 @@ contract('TokenTimelock', function (accounts) {
         expect(await this.timelock.releaseTime()).to.be.bignumber.equal(this.releaseTime);
       });
 
-      it.skip('cannot be released before time limit', async function () {
+      it('cannot be released before time limit', async function () {
         await expectRevert(this.timelock.release(), 'TokenTimelock: current time is before release time');
       });
 
-      it.skip('cannot be released just before time limit', async function () {
+      it('cannot be released just before time limit', async function () {
         await time.increaseTo(this.releaseTime.sub(time.duration.seconds(3)));
         await expectRevert(this.timelock.release(), 'TokenTimelock: current time is before release time');
       });
 
-      it.skip('can be released just after limit', async function () {
+      it('can be released just after limit', async function () {
         await time.increaseTo(this.releaseTime.add(time.duration.seconds(1)));
         await this.timelock.release();
         expect(await this.token.balanceOf(beneficiary)).to.be.bignumber.equal(amount);
       });
 
-      it.skip('can be released after time limit', async function () {
+      it('can be released after time limit', async function () {
         await time.increaseTo(this.releaseTime.add(time.duration.years(1)));
         await this.timelock.release();
         expect(await this.token.balanceOf(beneficiary)).to.be.bignumber.equal(amount);
       });
 
-      it.skip('cannot be released twice', async function () {
+      it('cannot be released twice', async function () {
         await time.increaseTo(this.releaseTime.add(time.duration.years(1)));
         await this.timelock.release();
         await expectRevert(this.timelock.release(), 'TokenTimelock: no tokens to release');

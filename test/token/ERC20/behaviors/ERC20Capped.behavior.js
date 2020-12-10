@@ -15,12 +15,12 @@ function shouldBehaveLikeERC20Capped (minter, [other], cap) {
       expect(await this.token.totalSupply()).to.be.bignumber.equal(cap.subn(1));
     });
 
-    it.skip('fails to mint if the amount exceeds the cap', async function () {
+    it('fails to mint if the amount exceeds the cap', async function () {
       await this.token.mint(other, cap.subn(1), { from });
       await expectRevert(this.token.mint(other, 2, { from }), 'ERC20Capped: cap exceeded');
     });
 
-    it.skip('fails to mint after cap is reached', async function () {
+    it('fails to mint after cap is reached', async function () {
       await this.token.mint(other, cap, { from });
       await expectRevert(this.token.mint(other, 1, { from }), 'ERC20Capped: cap exceeded');
     });

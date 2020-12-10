@@ -39,14 +39,14 @@ contract('GSNRecipient', function (accounts) {
       expectEvent.inLogs(logs, 'RelayHubChanged', { oldRelayHub: singletonRelayHub, newRelayHub });
     });
 
-    it.skip('cannot upgrade to the same RelayHub', async function () {
+    it('cannot upgrade to the same RelayHub', async function () {
       await expectRevert(
         this.recipient.upgradeRelayHub(singletonRelayHub),
         'GSNRecipient: new RelayHub is the current one',
       );
     });
 
-    it.skip('cannot upgrade to the zero address', async function () {
+    it('cannot upgrade to the zero address', async function () {
       await expectRevert(
         this.recipient.upgradeRelayHub(ZERO_ADDRESS), 'GSNRecipient: new RelayHub is the zero address',
       );
@@ -72,7 +72,7 @@ contract('GSNRecipient', function (accounts) {
     shouldBehaveLikeRegularContext(sender);
   });
 
-  context.skip('when receiving a relayed call', function () {
+  context('when receiving a relayed call', function () {
     beforeEach(async function () {
       await gsn.fundRecipient(web3, { recipient: this.recipient.address });
     });
@@ -97,7 +97,7 @@ contract('GSNRecipient', function (accounts) {
     });
   });
 
-  context.skip('with deposited funds', async function () {
+  context('with deposited funds', async function () {
     const amount = ether('1');
 
     beforeEach(async function () {

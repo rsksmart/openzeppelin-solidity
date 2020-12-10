@@ -58,7 +58,7 @@ contract('ERC721PresetMinterPauserAutoId', function (accounts) {
       expect(await this.token.tokenURI(tokenId)).to.equal(baseURI + tokenId);
     });
 
-    it.skip('other accounts cannot mint tokens', async function () {
+    it('other accounts cannot mint tokens', async function () {
       await expectRevert(
         this.token.mint(other, { from: other }),
         'ERC721PresetMinterPauserAutoId: must have minter role to mint',
@@ -83,7 +83,7 @@ contract('ERC721PresetMinterPauserAutoId', function (accounts) {
       expect(await this.token.paused()).to.equal(false);
     });
 
-    it.skip('cannot mint while paused', async function () {
+    it('cannot mint while paused', async function () {
       await this.token.pause({ from: deployer });
 
       await expectRevert(
@@ -92,7 +92,7 @@ contract('ERC721PresetMinterPauserAutoId', function (accounts) {
       );
     });
 
-    it.skip('other accounts cannot pause', async function () {
+    it('other accounts cannot pause', async function () {
       await expectRevert(
         this.token.pause({ from: other }),
         'ERC721PresetMinterPauserAutoId: must have pauser role to pause',

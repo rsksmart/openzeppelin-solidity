@@ -20,7 +20,7 @@ const {
 const ERC777 = artifacts.require('ERC777Mock');
 const ERC777SenderRecipientMock = artifacts.require('ERC777SenderRecipientMock');
 
-contract.skip('ERC777', function (accounts) {
+contract('ERC777', function (accounts) {
   const [ registryFunder, holder, defaultOperatorA, defaultOperatorB, newOperator, anyone ] = accounts;
 
   const initialSupply = new BN('10000');
@@ -49,7 +49,7 @@ contract.skip('ERC777', function (accounts) {
         });
 
         describe('when the owner is the zero address', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert(this.token.approveInternal(ZERO_ADDRESS, anyone, initialSupply),
               'ERC777: approve from the zero address',
             );
@@ -178,7 +178,7 @@ contract.skip('ERC777', function (accounts) {
         expect(await this.token.isOperatorFor(holder, holder)).to.equal(true);
       });
 
-      it.skip('reverts when self-authorizing', async function () {
+      it('reverts when self-authorizing', async function () {
         await expectRevert(
           this.token.authorizeOperator(holder, { from: holder }), 'ERC777: authorizing self as operator',
         );
@@ -247,7 +247,7 @@ contract.skip('ERC777', function (accounts) {
           expect(await this.token.isOperatorFor(defaultOperatorA, holder)).to.equal(false);
         });
 
-        it.skip('cannot be revoked for themselves', async function () {
+        it('cannot be revoked for themselves', async function () {
           await expectRevert(
             this.token.revokeOperator(defaultOperatorA, { from: defaultOperatorA }),
             'ERC777: revoking self as operator',
@@ -300,21 +300,21 @@ contract.skip('ERC777', function (accounts) {
               // Note that tokensRecipientImplementer doesn't implement the recipient interface for the recipient
             });
 
-            it.skip('send reverts', async function () {
+            it('send reverts', async function () {
               await expectRevert(
                 this.token.send(this.recipient, amount, data, { from: holder }),
                 'ERC777: token recipient contract has no implementer for ERC777TokensRecipient',
               );
             });
 
-            it.skip('operatorSend reverts', async function () {
+            it('operatorSend reverts', async function () {
               await expectRevert(
                 this.token.operatorSend(this.sender, this.recipient, amount, data, operatorData, { from: operator }),
                 'ERC777: token recipient contract has no implementer for ERC777TokensRecipient',
               );
             });
 
-            it.skip('mint (internal) reverts', async function () {
+            it('mint (internal) reverts', async function () {
               await expectRevert(
                 this.token.mintInternal(this.recipient, amount, data, operatorData, { from: operator }),
                 'ERC777: token recipient contract has no implementer for ERC777TokensRecipient',

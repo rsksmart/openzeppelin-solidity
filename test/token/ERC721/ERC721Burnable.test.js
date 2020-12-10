@@ -35,7 +35,7 @@ contract('ERC721Burnable', function (accounts) {
           logs = result.logs;
         });
 
-        it.skip('burns the given token ID and adjusts the balance of the owner', async function () {
+        it('burns the given token ID and adjusts the balance of the owner', async function () {
           await expectRevert(
             this.token.ownerOf(tokenId),
             'ERC721: owner query for nonexistent token',
@@ -60,7 +60,7 @@ contract('ERC721Burnable', function (accounts) {
         });
 
         context('getApproved', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert(
               this.token.getApproved(tokenId), 'ERC721: approved query for nonexistent token',
             );
@@ -69,7 +69,7 @@ contract('ERC721Burnable', function (accounts) {
       });
 
       describe('when the given token ID was not tracked by this contract', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.burn(unknownTokenId, { from: owner }), 'ERC721: operator query for nonexistent token',
           );

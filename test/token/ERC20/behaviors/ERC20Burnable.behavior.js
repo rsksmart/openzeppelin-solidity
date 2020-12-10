@@ -36,7 +36,7 @@ function shouldBehaveLikeERC20Burnable (owner, initialBalance, [burner]) {
     describe('when the given amount is greater than the balance of the sender', function () {
       const amount = initialBalance.addn(1);
 
-      it.skip('reverts', async function () {
+      it('reverts', async function () {
         await expectRevert(this.token.burn(amount, { from: owner }),
           'ERC20: burn amount exceeds balance',
         );
@@ -84,7 +84,7 @@ function shouldBehaveLikeERC20Burnable (owner, initialBalance, [burner]) {
     describe('when the given amount is greater than the balance of the sender', function () {
       const amount = initialBalance.addn(1);
 
-      it.skip('reverts', async function () {
+      it('reverts', async function () {
         await this.token.approve(burner, amount, { from: owner });
         await expectRevert(this.token.burnFrom(owner, amount, { from: burner }),
           'ERC20: burn amount exceeds balance',
@@ -95,7 +95,7 @@ function shouldBehaveLikeERC20Burnable (owner, initialBalance, [burner]) {
     describe('when the given amount is greater than the allowance', function () {
       const allowance = new BN(100);
 
-      it.skip('reverts', async function () {
+      it('reverts', async function () {
         await this.token.approve(burner, allowance, { from: owner });
         await expectRevert(this.token.burnFrom(owner, allowance.addn(1), { from: burner }),
           'ERC20: burn amount exceeds allowance',

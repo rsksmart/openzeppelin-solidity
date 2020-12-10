@@ -25,7 +25,7 @@ contract('ConditionalEscrow', function (accounts) {
       await this.escrow.setAllowed(payee, false);
     });
 
-    it.skip('reverts on withdrawals', async function () {
+    it('reverts on withdrawals', async function () {
       await this.escrow.deposit(payee, { from: owner, value: amount });
 
       await expectRevert(this.escrow.withdraw(payee, { from: owner }),

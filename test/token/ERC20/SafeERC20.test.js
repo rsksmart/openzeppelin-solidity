@@ -8,7 +8,7 @@ const SafeERC20Wrapper = artifacts.require('SafeERC20Wrapper');
 contract('SafeERC20', function (accounts) {
   const [ hasNoCode ] = accounts;
 
-  describe.skip('with address that has no contract code', function () {
+  describe('with address that has no contract code', function () {
     beforeEach(async function () {
       this.wrapper = await SafeERC20Wrapper.new(hasNoCode);
     });
@@ -16,7 +16,7 @@ contract('SafeERC20', function (accounts) {
     shouldRevertOnAllCalls('Address: call to non-contract');
   });
 
-  describe.skip('with token that returns false on all calls', function () {
+  describe('with token that returns false on all calls', function () {
     beforeEach(async function () {
       this.wrapper = await SafeERC20Wrapper.new((await ERC20ReturnFalseMock.new()).address);
     });
@@ -92,7 +92,7 @@ function shouldOnlyRevertOnErrors () {
         await this.wrapper.increaseAllowance(10);
       });
 
-      it.skip('reverts when decreasing the allowance', async function () {
+      it('reverts when decreasing the allowance', async function () {
         await expectRevert(
           this.wrapper.decreaseAllowance(10),
           'SafeERC20: decreased allowance below zero',
@@ -105,7 +105,7 @@ function shouldOnlyRevertOnErrors () {
         await this.wrapper.setAllowance(100);
       });
 
-      it.skip('reverts when approving a non-zero allowance', async function () {
+      it('reverts when approving a non-zero allowance', async function () {
         await expectRevert(
           this.wrapper.approve(20),
           'SafeERC20: approve from non-zero to non-zero allowance',
@@ -124,7 +124,7 @@ function shouldOnlyRevertOnErrors () {
         await this.wrapper.decreaseAllowance(50);
       });
 
-      it.skip('reverts when decreasing the allowance to a negative value', async function () {
+      it('reverts when decreasing the allowance to a negative value', async function () {
         await expectRevert(
           this.wrapper.decreaseAllowance(200),
           'SafeERC20: decreased allowance below zero',

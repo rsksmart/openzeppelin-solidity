@@ -37,7 +37,7 @@ contract('AccessControl', function (accounts) {
       expect(await this.accessControl.hasRole(ROLE, authorized)).to.equal(true);
     });
 
-    it.skip('non-admin cannot grant role to other accounts', async function () {
+    it('non-admin cannot grant role to other accounts', async function () {
       await expectRevert(
         this.accessControl.grantRole(ROLE, authorized, { from: other }),
         'AccessControl: sender must be an admin to grant',
@@ -71,7 +71,7 @@ contract('AccessControl', function (accounts) {
         expect(await this.accessControl.hasRole(ROLE, authorized)).to.equal(false);
       });
 
-      it.skip('non-admin cannot revoke role', async function () {
+      it('non-admin cannot revoke role', async function () {
         await expectRevert(
           this.accessControl.revokeRole(ROLE, authorized, { from: other }),
           'AccessControl: sender must be an admin to revoke',
@@ -105,7 +105,7 @@ contract('AccessControl', function (accounts) {
         expect(await this.accessControl.hasRole(ROLE, authorized)).to.equal(false);
       });
 
-      it.skip('only the sender can renounce their roles', async function () {
+      it('only the sender can renounce their roles', async function () {
         await expectRevert(
           this.accessControl.renounceRole(ROLE, authorized, { from: admin }),
           'AccessControl: can only renounce roles for self',
@@ -165,14 +165,14 @@ contract('AccessControl', function (accounts) {
       expectEvent(receipt, 'RoleRevoked', { account: authorized, role: ROLE, sender: otherAdmin });
     });
 
-    it.skip('a role\'s previous admins no longer grant roles', async function () {
+    it('a role\'s previous admins no longer grant roles', async function () {
       await expectRevert(
         this.accessControl.grantRole(ROLE, authorized, { from: admin }),
         'AccessControl: sender must be an admin to grant',
       );
     });
 
-    it.skip('a role\'s previous admins no longer revoke roles', async function () {
+    it('a role\'s previous admins no longer revoke roles', async function () {
       await expectRevert(
         this.accessControl.revokeRole(ROLE, authorized, { from: admin }),
         'AccessControl: sender must be an admin to revoke',

@@ -52,7 +52,7 @@ contract('ERC721', function (accounts) {
         expect(await this.token.tokenURI(firstTokenId)).to.be.equal('');
       });
 
-      it.skip('reverts when queried for non existent token id', async function () {
+      it('reverts when queried for non existent token id', async function () {
         await expectRevert(
           this.token.tokenURI(nonExistentTokenId), 'ERC721Metadata: URI query for nonexistent token',
         );
@@ -63,7 +63,7 @@ contract('ERC721', function (accounts) {
         expect(await this.token.tokenURI(firstTokenId)).to.be.equal(sampleUri);
       });
 
-      it.skip('reverts when setting for non existent token id', async function () {
+      it('reverts when setting for non existent token id', async function () {
         await expectRevert(
           this.token.setTokenURI(nonExistentTokenId, sampleUri), 'ERC721Metadata: URI set of nonexistent token',
         );
@@ -96,7 +96,7 @@ contract('ERC721', function (accounts) {
         expect(await this.token.tokenURI(firstTokenId)).to.be.equal(baseURI + firstTokenId);
       });
 
-      it.skip('tokens with URI can be burnt ', async function () {
+      it('tokens with URI can be burnt ', async function () {
         await this.token.setTokenURI(firstTokenId, sampleUri);
 
         await this.token.burn(firstTokenId, { from: owner });
@@ -130,7 +130,7 @@ contract('ERC721', function (accounts) {
       });
 
       context('when querying the zero address', function () {
-        it.skip('throws', async function () {
+        it('throws', async function () {
           await expectRevert(
             this.token.balanceOf(ZERO_ADDRESS), 'ERC721: balance query for the zero address',
           );
@@ -150,7 +150,7 @@ contract('ERC721', function (accounts) {
       context('when the given token ID was not tracked by this token', function () {
         const tokenId = nonExistentTokenId;
 
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.ownerOf(tokenId), 'ERC721: owner query for nonexistent token',
           );
@@ -266,7 +266,7 @@ contract('ERC721', function (accounts) {
         });
 
         context('when the address of the previous owner is incorrect', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert(
               transferFunction.call(this, other, other, tokenId, { from: owner }),
               'ERC721: transfer of token that is not own',
@@ -275,7 +275,7 @@ contract('ERC721', function (accounts) {
         });
 
         context('when the sender is not authorized for the token id', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert(
               transferFunction.call(this, owner, other, tokenId, { from: other }),
               'ERC721: transfer caller is not owner nor approved',
@@ -284,7 +284,7 @@ contract('ERC721', function (accounts) {
         });
 
         context('when the given token ID does not exist', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert(
               transferFunction.call(this, owner, other, nonExistentTokenId, { from: owner }),
               'ERC721: operator query for nonexistent token',
@@ -293,7 +293,7 @@ contract('ERC721', function (accounts) {
         });
 
         context('when the address to transfer the token to is the zero address', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert(
               transferFunction.call(this, owner, ZERO_ADDRESS, tokenId, { from: owner }),
               'ERC721: transfer to the zero address',
@@ -353,7 +353,7 @@ contract('ERC721', function (accounts) {
             });
 
             describe('with an invalid token id', function () {
-              it.skip('reverts', async function () {
+              it('reverts', async function () {
                 await expectRevert(
                   transferFun.call(
                     this,
@@ -378,7 +378,7 @@ contract('ERC721', function (accounts) {
         });
 
         describe('to a receiver contract returning unexpected value', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             const invalidReceiver = await ERC721ReceiverMock.new('0x42', false);
             await expectRevert(
               this.token.safeTransferFrom(owner, invalidReceiver.address, tokenId, { from: owner }),
@@ -388,7 +388,7 @@ contract('ERC721', function (accounts) {
         });
 
         describe('to a receiver contract that throws', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             const revertingReceiver = await ERC721ReceiverMock.new(RECEIVER_MAGIC_VALUE, true);
             await expectRevert(
               this.token.safeTransferFrom(owner, revertingReceiver.address, tokenId, { from: owner }),
@@ -398,7 +398,7 @@ contract('ERC721', function (accounts) {
         });
 
         describe('to a contract that does not implement the required function', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             const nonReceiver = this.token;
             await expectRevert(
               this.token.safeTransferFrom(owner, nonReceiver.address, tokenId, { from: owner }),
@@ -437,7 +437,7 @@ contract('ERC721', function (accounts) {
         });
 
         context('to a receiver contract returning unexpected value', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             const invalidReceiver = await ERC721ReceiverMock.new('0x42', false);
             await expectRevert(
               this.token.safeMint(invalidReceiver.address, tokenId),
@@ -447,7 +447,7 @@ contract('ERC721', function (accounts) {
         });
 
         context('to a receiver contract that throws', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             const revertingReceiver = await ERC721ReceiverMock.new(RECEIVER_MAGIC_VALUE, true);
             await expectRevert(
               this.token.safeMint(revertingReceiver.address, tokenId),
@@ -457,7 +457,7 @@ contract('ERC721', function (accounts) {
         });
 
         context('to a contract that does not implement the required function', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             const nonReceiver = this.token;
             await expectRevert(
               this.token.safeMint(nonReceiver.address, tokenId),
@@ -548,7 +548,7 @@ contract('ERC721', function (accounts) {
       });
 
       context('when the address that receives the approval is the owner', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.approve(owner, tokenId, { from: owner }), 'ERC721: approval to current owner',
           );
@@ -556,14 +556,14 @@ contract('ERC721', function (accounts) {
       });
 
       context('when the sender does not own the given token ID', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(this.token.approve(approved, tokenId, { from: other }),
             'ERC721: approve caller is not owner nor approved');
         });
       });
 
       context('when the sender is approved for the given token ID', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await this.token.approve(approved, tokenId, { from: owner });
           await expectRevert(this.token.approve(anotherApproved, tokenId, { from: approved }),
             'ERC721: approve caller is not owner nor approved for all');
@@ -581,7 +581,7 @@ contract('ERC721', function (accounts) {
       });
 
       context('when the given token ID does not exist', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(this.token.approve(approved, nonExistentTokenId, { from: operator }),
             'ERC721: owner query for nonexistent token');
         });
@@ -660,7 +660,7 @@ contract('ERC721', function (accounts) {
       });
 
       context('when the operator is the owner', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(this.token.setApprovalForAll(owner, true, { from: owner }),
             'ERC721: approve to caller');
         });
@@ -669,7 +669,7 @@ contract('ERC721', function (accounts) {
 
     describe('getApproved', async function () {
       context('when token is not minted', async function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.getApproved(nonExistentTokenId),
             'ERC721: approved query for nonexistent token',
@@ -710,7 +710,7 @@ contract('ERC721', function (accounts) {
       });
 
       describe('when the index is greater than or equal to the total tokens owned by the given address', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.tokenOfOwnerByIndex(owner, 2), 'EnumerableSet: index out of bounds',
           );
@@ -718,7 +718,7 @@ contract('ERC721', function (accounts) {
       });
 
       describe('when the given address does not own any token', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.tokenOfOwnerByIndex(other, 0), 'EnumerableSet: index out of bounds',
           );
@@ -740,7 +740,7 @@ contract('ERC721', function (accounts) {
             secondTokenId.toNumber()]);
         });
 
-        it.skip('returns empty collection for original owner', async function () {
+        it('returns empty collection for original owner', async function () {
           expect(await this.token.balanceOf(owner)).to.be.bignumber.equal('0');
           await expectRevert(
             this.token.tokenOfOwnerByIndex(owner, 0), 'EnumerableSet: index out of bounds',
@@ -758,7 +758,7 @@ contract('ERC721', function (accounts) {
           secondTokenId.toNumber()]);
       });
 
-      it.skip('reverts if index is greater than supply', async function () {
+      it('reverts if index is greater than supply', async function () {
         await expectRevert(
           this.token.tokenByIndex(2), 'EnumerableMap: index out of bounds',
         );
@@ -788,7 +788,7 @@ contract('ERC721', function (accounts) {
   });
 
   describe('_mint(address, uint256)', function () {
-    it.skip('reverts with a null destination address', async function () {
+    it('reverts with a null destination address', async function () {
       await expectRevert(
         this.token.mint(ZERO_ADDRESS, firstTokenId), 'ERC721: mint to the zero address',
       );
@@ -816,14 +816,14 @@ contract('ERC721', function (accounts) {
         expect(await this.token.tokenByIndex(0)).to.be.bignumber.equal(firstTokenId);
       });
 
-      it.skip('reverts when adding a token id that already exists', async function () {
+      it('reverts when adding a token id that already exists', async function () {
         await expectRevert(this.token.mint(owner, firstTokenId), 'ERC721: token already minted');
       });
     });
   });
 
   describe('_burn', function () {
-    it.skip('reverts when burning a non-existent token id', async function () {
+    it('reverts when burning a non-existent token id', async function () {
       await expectRevert(
         this.token.burn(firstTokenId), 'ERC721: owner query for nonexistent token',
       );
@@ -848,7 +848,7 @@ contract('ERC721', function (accounts) {
           expectEvent.inLogs(this.logs, 'Approval', { owner, approved: ZERO_ADDRESS, tokenId: firstTokenId });
         });
 
-        it.skip('deletes the token', async function () {
+        it('deletes the token', async function () {
           expect(await this.token.balanceOf(owner)).to.be.bignumber.equal('1');
           await expectRevert(
             this.token.ownerOf(firstTokenId), 'ERC721: owner query for nonexistent token',
@@ -863,7 +863,7 @@ contract('ERC721', function (accounts) {
           expect(await this.token.tokenByIndex(0)).to.be.bignumber.equal(secondTokenId);
         });
 
-        it.skip('burns all tokens', async function () {
+        it('burns all tokens', async function () {
           await this.token.burn(secondTokenId, { from: owner });
           expect(await this.token.totalSupply()).to.be.bignumber.equal('0');
           await expectRevert(
@@ -871,7 +871,7 @@ contract('ERC721', function (accounts) {
           );
         });
 
-        it.skip('reverts when burning a token id that has been deleted', async function () {
+        it('reverts when burning a token id that has been deleted', async function () {
           await expectRevert(
             this.token.burn(firstTokenId), 'ERC721: owner query for nonexistent token',
           );

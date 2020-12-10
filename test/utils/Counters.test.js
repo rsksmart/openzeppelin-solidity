@@ -41,7 +41,7 @@ contract('Counters', function (accounts) {
         expect(await this.counter.current()).to.be.bignumber.equal('0');
       });
 
-      it.skip('reverts if the current value is 0', async function () {
+      it('reverts if the current value is 0', async function () {
         await this.counter.decrement();
         await expectRevert(this.counter.decrement(), 'SafeMath: subtraction overflow');
       });

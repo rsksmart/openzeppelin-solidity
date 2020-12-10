@@ -5,7 +5,7 @@ const { expect } = require('chai');
 
 const ERC1820ImplementerMock = artifacts.require('ERC1820ImplementerMock');
 
-contract.skip('ERC1820Implementer', function (accounts) {
+contract('ERC1820Implementer', function (accounts) {
   const [ registryFunder, implementee, other ] = accounts;
 
   const ERC1820_ACCEPT_MAGIC = bufferToHex(keccakFromString('ERC1820_ACCEPT_MAGIC'));
@@ -19,12 +19,12 @@ contract.skip('ERC1820Implementer', function (accounts) {
   });
 
   context('with no registered interfaces', function () {
-    it.skip('returns false when interface implementation is queried', async function () {
+    it('returns false when interface implementation is queried', async function () {
       expect(await this.implementer.canImplementInterfaceForAddress(this.interfaceA, implementee))
         .to.not.equal(ERC1820_ACCEPT_MAGIC);
     });
 
-    it.skip('reverts when attempting to set as implementer in the registry', async function () {
+    it('reverts when attempting to set as implementer in the registry', async function () {
       await expectRevert(
         this.registry.setInterfaceImplementer(
           implementee, this.interfaceA, this.implementer.address, { from: implementee },

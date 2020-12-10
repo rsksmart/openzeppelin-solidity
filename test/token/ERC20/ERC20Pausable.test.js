@@ -35,7 +35,7 @@ contract('ERC20Pausable', function (accounts) {
         expect(await this.token.balanceOf(recipient)).to.be.bignumber.equal(initialSupply);
       });
 
-      it.skip('reverts when trying to transfer when paused', async function () {
+      it('reverts when trying to transfer when paused', async function () {
         await this.token.pause();
 
         await expectRevert(this.token.transfer(recipient, initialSupply, { from: holder }),
@@ -68,7 +68,7 @@ contract('ERC20Pausable', function (accounts) {
         expect(await this.token.balanceOf(holder)).to.be.bignumber.equal(initialSupply.sub(allowance));
       });
 
-      it.skip('reverts when trying to transfer from when paused', async function () {
+      it('reverts when trying to transfer from when paused', async function () {
         await this.token.pause();
 
         await expectRevert(this.token.transferFrom(
@@ -95,7 +95,7 @@ contract('ERC20Pausable', function (accounts) {
         expect(await this.token.balanceOf(recipient)).to.be.bignumber.equal(amount);
       });
 
-      it.skip('reverts when trying to mint when paused', async function () {
+      it('reverts when trying to mint when paused', async function () {
         await this.token.pause();
 
         await expectRevert(this.token.mint(recipient, amount),
@@ -122,7 +122,7 @@ contract('ERC20Pausable', function (accounts) {
         expect(await this.token.balanceOf(holder)).to.be.bignumber.equal(initialSupply.sub(amount));
       });
 
-      it.skip('reverts when trying to burn when paused', async function () {
+      it('reverts when trying to burn when paused', async function () {
         await this.token.pause();
 
         await expectRevert(this.token.burn(holder, amount),

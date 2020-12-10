@@ -11,7 +11,7 @@ contract('RefundEscrow', function (accounts) {
   const amount = ether('54');
   const refundees = [refundee1, refundee2];
 
-  it.skip('requires a non-null beneficiary', async function () {
+  it('requires a non-null beneficiary', async function () {
     await expectRevert(
       RefundEscrow.new(ZERO_ADDRESS, { from: owner }), 'RefundEscrow: beneficiary is the zero address',
     );
@@ -34,14 +34,14 @@ contract('RefundEscrow', function (accounts) {
         expect(await this.escrow.depositsOf(refundee1)).to.be.bignumber.equal(amount);
       });
 
-      it.skip('does not refund refundees', async function () {
+      it('does not refund refundees', async function () {
         await this.escrow.deposit(refundee1, { from: owner, value: amount });
         await expectRevert(this.escrow.withdraw(refundee1),
           'ConditionalEscrow: payee is not allowed to withdraw',
         );
       });
 
-      it.skip('does not allow beneficiary withdrawal', async function () {
+      it('does not allow beneficiary withdrawal', async function () {
         await this.escrow.deposit(refundee1, { from: owner, value: amount });
         await expectRevert(this.escrow.beneficiaryWithdraw(),
           'RefundEscrow: beneficiary can only withdraw while closed',
@@ -49,7 +49,7 @@ contract('RefundEscrow', function (accounts) {
       });
     });
 
-    it.skip('only the owner can enter closed state', async function () {
+    it('only the owner can enter closed state', async function () {
       await expectRevert(this.escrow.close({ from: beneficiary }),
         'Ownable: caller is not the owner',
       );
@@ -65,13 +65,13 @@ contract('RefundEscrow', function (accounts) {
         await this.escrow.close({ from: owner });
       });
 
-      it.skip('rejects deposits', async function () {
+      it('rejects deposits', async function () {
         await expectRevert(this.escrow.deposit(refundee1, { from: owner, value: amount }),
           'RefundEscrow: can only deposit while active',
         );
       });
 
-      it.skip('does not refund refundees', async function () {
+      it('does not refund refundees', async function () {
         await expectRevert(this.escrow.withdraw(refundee1),
           'ConditionalEscrow: payee is not allowed to withdraw',
         );
@@ -83,20 +83,20 @@ contract('RefundEscrow', function (accounts) {
         expect(await balanceTracker.delta()).to.be.bignumber.equal(amount.muln(refundees.length));
       });
 
-      it.skip('prevents entering the refund state', async function () {
+      it('prevents entering the refund state', async function () {
         await expectRevert(this.escrow.enableRefunds({ from: owner }),
           'RefundEscrow: can only enable refunds while active',
         );
       });
 
-      it.skip('prevents re-entering the closed state', async function () {
+      it('prevents re-entering the closed state', async function () {
         await expectRevert(this.escrow.close({ from: owner }),
           'RefundEscrow: can only close while active',
         );
       });
     });
 
-    it.skip('only the owner can enter refund state', async function () {
+    it('only the owner can enter refund state', async function () {
       await expectRevert(this.escrow.enableRefunds({ from: beneficiary }),
         'Ownable: caller is not the owner',
       );
@@ -112,7 +112,7 @@ contract('RefundEscrow', function (accounts) {
         await this.escrow.enableRefunds({ from: owner });
       });
 
-      it.skip('rejects deposits', async function () {
+      it('rejects deposits', async function () {
         await expectRevert(this.escrow.deposit(refundee1, { from: owner, value: amount }),
           'RefundEscrow: can only deposit while active',
         );
@@ -126,19 +126,19 @@ contract('RefundEscrow', function (accounts) {
         }
       });
 
-      it.skip('does not allow beneficiary withdrawal', async function () {
+      it('does not allow beneficiary withdrawal', async function () {
         await expectRevert(this.escrow.beneficiaryWithdraw(),
           'RefundEscrow: beneficiary can only withdraw while closed',
         );
       });
 
-      it.skip('prevents entering the closed state', async function () {
+      it('prevents entering the closed state', async function () {
         await expectRevert(this.escrow.close({ from: owner }),
           'RefundEscrow: can only close while active',
         );
       });
 
-      it.skip('prevents re-entering the refund state', async function () {
+      it('prevents re-entering the refund state', async function () {
         await expectRevert(this.escrow.enableRefunds({ from: owner }),
           'RefundEscrow: can only enable refunds while active',
         );

@@ -29,13 +29,13 @@ contract('Address', function (accounts) {
     });
 
     context('when sender contract has no funds', function () {
-      it.skip('sends 0 wei', async function () {
+      it('sends 0 wei', async function () {
         await this.mock.sendValue(other, 0);
 
         expect(await this.recipientTracker.delta()).to.be.bignumber.equal('0');
       });
 
-      it.skip('reverts when sending non-zero amounts', async function () {
+      it('reverts when sending non-zero amounts', async function () {
         await expectRevert(this.mock.sendValue(other, 1), 'Address: insufficient balance');
       });
     });
@@ -46,23 +46,23 @@ contract('Address', function (accounts) {
         await send.ether(other, this.mock.address, funds);
       });
 
-      it.skip('sends 0 wei', async function () {
+      it('sends 0 wei', async function () {
         await this.mock.sendValue(recipient, 0);
         expect(await this.recipientTracker.delta()).to.be.bignumber.equal('0');
       });
 
-      it.skip('sends non-zero amounts', async function () {
+      it('sends non-zero amounts', async function () {
         await this.mock.sendValue(recipient, funds.subn(1));
         expect(await this.recipientTracker.delta()).to.be.bignumber.equal(funds.subn(1));
       });
 
-      it.skip('sends the whole balance', async function () {
+      it('sends the whole balance', async function () {
         await this.mock.sendValue(recipient, funds);
         expect(await this.recipientTracker.delta()).to.be.bignumber.equal(funds);
         expect(await balance.current(this.mock.address)).to.be.bignumber.equal('0');
       });
 
-      it.skip('reverts when sending more than the balance', async function () {
+      it('reverts when sending more than the balance', async function () {
         await expectRevert(this.mock.sendValue(recipient, funds.addn(1)), 'Address: insufficient balance');
       });
 
@@ -79,7 +79,7 @@ contract('Address', function (accounts) {
           expect(await tracker.delta()).to.be.bignumber.equal(funds);
         });
 
-        it.skip('reverts on recipient revert', async function () {
+        it('reverts on recipient revert', async function () {
           await this.contractRecipient.setAcceptEther(false);
           await expectRevert(
             this.mock.sendValue(this.contractRecipient.address, funds),
@@ -109,7 +109,7 @@ contract('Address', function (accounts) {
         await expectEvent.inTransaction(receipt.tx, CallReceiverMock, 'MockFunctionCalled');
       });
 
-      it.skip('reverts when the called function reverts with no reason', async function () {
+      it('reverts when the called function reverts with no reason', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunctionRevertsNoReason',
           type: 'function',
@@ -122,7 +122,7 @@ contract('Address', function (accounts) {
         );
       });
 
-      it.skip('reverts when the called function reverts, bubbling up the revert reason', async function () {
+      it('reverts when the called function reverts, bubbling up the revert reason', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunctionRevertsReason',
           type: 'function',
@@ -135,7 +135,7 @@ contract('Address', function (accounts) {
         );
       });
 
-      it.skip('reverts when the called function runs out of gas', async function () {
+      it('reverts when the called function runs out of gas', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunctionOutOfGas',
           type: 'function',
@@ -148,7 +148,7 @@ contract('Address', function (accounts) {
         );
       });
 
-      it.skip('reverts when the called function throws', async function () {
+      it('reverts when the called function throws', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunctionThrows',
           type: 'function',
@@ -161,7 +161,7 @@ contract('Address', function (accounts) {
         );
       });
 
-      it.skip('reverts when function does not exist', async function () {
+      it('reverts when function does not exist', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunctionDoesNotExist',
           type: 'function',
@@ -176,7 +176,7 @@ contract('Address', function (accounts) {
     });
 
     context('with non-contract receiver', function () {
-      it.skip('reverts when address is not a contract', async function () {
+      it('reverts when address is not a contract', async function () {
         const [ recipient ] = accounts;
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunction',
@@ -211,7 +211,7 @@ contract('Address', function (accounts) {
     context('with non-zero value', function () {
       const amount = ether('1.2');
 
-      it.skip('reverts if insufficient sender balance', async function () {
+      it('reverts if insufficient sender balance', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunction',
           type: 'function',
@@ -262,7 +262,7 @@ contract('Address', function (accounts) {
         await expectEvent.inTransaction(receipt.tx, CallReceiverMock, 'MockFunctionCalled');
       });
 
-      it.skip('reverts when calling non-payable functions', async function () {
+      it('reverts when calling non-payable functions', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunctionNonPayable',
           type: 'function',
@@ -295,7 +295,7 @@ contract('Address', function (accounts) {
       expectEvent(receipt, 'CallReturnValue', { data: '0x1234' });
     });
 
-    it.skip('reverts on a non-static function', async function () {
+    it('reverts on a non-static function', async function () {
       const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
         name: 'mockFunction',
         type: 'function',
@@ -308,7 +308,7 @@ contract('Address', function (accounts) {
       );
     });
 
-    it.skip('bubbles up revert reason', async function () {
+    it('bubbles up revert reason', async function () {
       const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
         name: 'mockFunctionRevertsReason',
         type: 'function',
@@ -321,7 +321,7 @@ contract('Address', function (accounts) {
       );
     });
 
-    it.skip('reverts when address is not a contract', async function () {
+    it('reverts when address is not a contract', async function () {
       const [ recipient ] = accounts;
       const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
         name: 'mockFunction',

@@ -86,7 +86,7 @@ function shouldBehaveLikeERC20 (errorPrefix, initialSupply, initialHolder, recip
           describe('when the token owner does not have enough balance', function () {
             const amount = initialSupply.addn(1);
 
-            it.skip('reverts', async function () {
+            it('reverts', async function () {
               await expectRevert(this.token.transferFrom(
                 tokenOwner, to, amount, { from: spender }), `${errorPrefix}: transfer amount exceeds balance`,
               );
@@ -102,7 +102,7 @@ function shouldBehaveLikeERC20 (errorPrefix, initialSupply, initialHolder, recip
           describe('when the token owner has enough balance', function () {
             const amount = initialSupply;
 
-            it.skip('reverts', async function () {
+            it('reverts', async function () {
               await expectRevert(this.token.transferFrom(
                 tokenOwner, to, amount, { from: spender }), `${errorPrefix}: transfer amount exceeds allowance`,
               );
@@ -112,7 +112,7 @@ function shouldBehaveLikeERC20 (errorPrefix, initialSupply, initialHolder, recip
           describe('when the token owner does not have enough balance', function () {
             const amount = initialSupply.addn(1);
 
-            it.skip('reverts', async function () {
+            it('reverts', async function () {
               await expectRevert(this.token.transferFrom(
                 tokenOwner, to, amount, { from: spender }), `${errorPrefix}: transfer amount exceeds balance`,
               );
@@ -129,7 +129,7 @@ function shouldBehaveLikeERC20 (errorPrefix, initialSupply, initialHolder, recip
           await this.token.approve(spender, amount, { from: tokenOwner });
         });
 
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(this.token.transferFrom(
             tokenOwner, to, amount, { from: spender }), `${errorPrefix}: transfer to the zero address`,
           );
@@ -142,7 +142,7 @@ function shouldBehaveLikeERC20 (errorPrefix, initialSupply, initialHolder, recip
       const tokenOwner = ZERO_ADDRESS;
       const to = recipient;
 
-      it.skip('reverts', async function () {
+      it('reverts', async function () {
         await expectRevert(this.token.transferFrom(
           tokenOwner, to, amount, { from: spender }), `${errorPrefix}: transfer from the zero address`,
         );
@@ -164,7 +164,7 @@ function shouldBehaveLikeERC20Transfer (errorPrefix, from, to, balance, transfer
     describe('when the sender does not have enough balance', function () {
       const amount = balance.addn(1);
 
-      it.skip('reverts', async function () {
+      it('reverts', async function () {
         await expectRevert(transfer.call(this, from, to, amount),
           `${errorPrefix}: transfer amount exceeds balance`,
         );
@@ -217,7 +217,7 @@ function shouldBehaveLikeERC20Transfer (errorPrefix, from, to, balance, transfer
   });
 
   describe('when the recipient is the zero address', function () {
-    it.skip('reverts', async function () {
+    it('reverts', async function () {
       await expectRevert(transfer.call(this, from, ZERO_ADDRESS, balance),
         `${errorPrefix}: transfer to the zero address`,
       );
@@ -297,7 +297,7 @@ function shouldBehaveLikeERC20Approve (errorPrefix, owner, spender, supply, appr
   });
 
   describe('when the spender is the zero address', function () {
-    it.skip('reverts', async function () {
+    it('reverts', async function () {
       await expectRevert(approve.call(this, owner, ZERO_ADDRESS, supply),
         `${errorPrefix}: approve to the zero address`,
       );

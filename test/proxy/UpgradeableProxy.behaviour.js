@@ -8,7 +8,7 @@ const DummyImplementation = artifacts.require('DummyImplementation');
 const IMPLEMENTATION_LABEL = 'eip1967.proxy.implementation';
 
 module.exports = function shouldBehaveLikeUpgradeableProxy (createProxy, proxyAdminAddress, proxyCreator) {
-  it.skip('cannot be initialized with a non-contract address', async function () {
+  it('cannot be initialized with a non-contract address', async function () {
     const nonContractAddress = proxyCreator;
     const initializeData = Buffer.from('');
     await expectRevert.unspecified(
@@ -23,7 +23,7 @@ module.exports = function shouldBehaveLikeUpgradeableProxy (createProxy, proxyAd
   });
 
   const assertProxyInitialization = function ({ value, balance }) {
-    it.skip('sets the implementation address', async function () {
+    it('sets the implementation address', async function () {
       const slot = '0x' + new BN(keccak256(Buffer.from(IMPLEMENTATION_LABEL))).subn(1).toString(16);
       const implementation = toChecksumAddress(await web3.eth.getStorageAt(this.proxy, slot));
       expect(implementation).to.be.equal(this.implementation);
@@ -164,7 +164,7 @@ module.exports = function shouldBehaveLikeUpgradeableProxy (createProxy, proxyAd
       describe('when sending some balance', function () {
         const value = 10e5;
 
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert.unspecified(
             createProxy(this.implementation, proxyAdminAddress, initializeData, { from: proxyCreator, value }),
           );

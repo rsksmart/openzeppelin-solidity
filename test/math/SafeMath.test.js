@@ -28,7 +28,7 @@ contract('SafeMath', function (accounts) {
       await testCommutative(this.safeMath.add, a, b, a.add(b));
     });
 
-    it.skip('reverts on addition overflow', async function () {
+    it('reverts on addition overflow', async function () {
       const a = MAX_UINT256;
       const b = new BN('1');
 
@@ -44,7 +44,7 @@ contract('SafeMath', function (accounts) {
       expect(await this.safeMath.sub(a, b)).to.be.bignumber.equal(a.sub(b));
     });
 
-    it.skip('reverts if subtraction result would be negative', async function () {
+    it('reverts if subtraction result would be negative', async function () {
       const a = new BN('1234');
       const b = new BN('5678');
 
@@ -67,7 +67,7 @@ contract('SafeMath', function (accounts) {
       await testCommutative(this.safeMath.mul, a, b, '0');
     });
 
-    it.skip('reverts on multiplication overflow', async function () {
+    it('reverts on multiplication overflow', async function () {
       const a = MAX_UINT256;
       const b = new BN('2');
 
@@ -97,7 +97,7 @@ contract('SafeMath', function (accounts) {
       expect(await this.safeMath.div(a, b)).to.be.bignumber.equal('1');
     });
 
-    it.skip('reverts on division by zero', async function () {
+    it('reverts on division by zero', async function () {
       const a = new BN('5678');
       const b = new BN('0');
 
@@ -136,7 +136,7 @@ contract('SafeMath', function (accounts) {
       });
     });
 
-    it.skip('reverts with a 0 divisor', async function () {
+    it('reverts with a 0 divisor', async function () {
       const a = new BN('5678');
       const b = new BN('0');
 

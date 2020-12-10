@@ -30,11 +30,11 @@ contract('ERC20Snapshot', function (accounts) {
   });
 
   describe('totalSupplyAt', function () {
-    it.skip('reverts with a snapshot id of 0', async function () {
+    it('reverts with a snapshot id of 0', async function () {
       await expectRevert(this.token.totalSupplyAt(0), 'ERC20Snapshot: id is 0');
     });
 
-    it.skip('reverts with a not-yet-created snapshot id', async function () {
+    it('reverts with a not-yet-created snapshot id', async function () {
       await expectRevert(this.token.totalSupplyAt(1), 'ERC20Snapshot: nonexistent id');
     });
 
@@ -104,11 +104,11 @@ contract('ERC20Snapshot', function (accounts) {
   });
 
   describe('balanceOfAt', function () {
-    it.skip('reverts with a snapshot id of 0', async function () {
+    it('reverts with a snapshot id of 0', async function () {
       await expectRevert(this.token.balanceOfAt(other, 0), 'ERC20Snapshot: id is 0');
     });
 
-    it.skip('reverts with a not-yet-created snapshot id', async function () {
+    it('reverts with a not-yet-created snapshot id', async function () {
       await expectRevert(this.token.balanceOfAt(other, 1), 'ERC20Snapshot: nonexistent id');
     });
 

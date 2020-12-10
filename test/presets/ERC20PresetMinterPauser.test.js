@@ -49,7 +49,7 @@ contract('ERC20PresetMinterPauser', function (accounts) {
       expect(await this.token.balanceOf(other)).to.be.bignumber.equal(amount);
     });
 
-    it.skip('other accounts cannot mint tokens', async function () {
+    it('other accounts cannot mint tokens', async function () {
       await expectRevert(
         this.token.mint(other, amount, { from: other }),
         'ERC20PresetMinterPauser: must have minter role to mint',
@@ -74,7 +74,7 @@ contract('ERC20PresetMinterPauser', function (accounts) {
       expect(await this.token.paused()).to.equal(false);
     });
 
-    it.skip('cannot mint while paused', async function () {
+    it('cannot mint while paused', async function () {
       await this.token.pause({ from: deployer });
 
       await expectRevert(
@@ -83,7 +83,7 @@ contract('ERC20PresetMinterPauser', function (accounts) {
       );
     });
 
-    it.skip('other accounts cannot pause', async function () {
+    it('other accounts cannot pause', async function () {
       await expectRevert(this.token.pause({ from: other }), 'ERC20PresetMinterPauser: must have pauser role to pause');
     });
   });

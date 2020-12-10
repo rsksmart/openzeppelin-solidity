@@ -38,7 +38,7 @@ contract('ProxyAdmin', function (accounts) {
   });
 
   describe('#changeProxyAdmin', function () {
-    it.skip('fails to change proxy admin if its not the proxy owner', async function () {
+    it('fails to change proxy admin if its not the proxy owner', async function () {
       await expectRevert(
         this.proxyAdmin.changeProxyAdmin(this.proxy.address, newAdmin, { from: anotherAccount }),
         'caller is not the owner',
@@ -60,7 +60,7 @@ contract('ProxyAdmin', function (accounts) {
 
   describe('#upgrade', function () {
     context('with unauthorized account', function () {
-      it.skip('fails to upgrade', async function () {
+      it('fails to upgrade', async function () {
         await expectRevert(
           this.proxyAdmin.upgrade(this.proxy.address, this.implementationV2.address, { from: anotherAccount }),
           'caller is not the owner',
@@ -79,7 +79,7 @@ contract('ProxyAdmin', function (accounts) {
 
   describe('#upgradeAndCall', function () {
     context('with unauthorized account', function () {
-      it.skip('fails to upgrade', async function () {
+      it('fails to upgrade', async function () {
         const callData = new ImplV1('').contract.methods['initializeNonPayable(uint256)'](1337).encodeABI();
         await expectRevert(
           this.proxyAdmin.upgradeAndCall(this.proxy.address, this.implementationV2.address, callData,

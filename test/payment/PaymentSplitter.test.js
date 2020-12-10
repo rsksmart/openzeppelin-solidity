@@ -10,35 +10,35 @@ contract('PaymentSplitter', function (accounts) {
 
   const amount = ether('1');
 
-  it.skip('rejects an empty set of payees', async function () {
+  it('rejects an empty set of payees', async function () {
     await expectRevert(PaymentSplitter.new([], []), 'PaymentSplitter: no payees');
   });
 
-  it.skip('rejects more payees than shares', async function () {
+  it('rejects more payees than shares', async function () {
     await expectRevert(PaymentSplitter.new([payee1, payee2, payee3], [20, 30]),
       'PaymentSplitter: payees and shares length mismatch',
     );
   });
 
-  it.skip('rejects more shares than payees', async function () {
+  it('rejects more shares than payees', async function () {
     await expectRevert(PaymentSplitter.new([payee1, payee2], [20, 30, 40]),
       'PaymentSplitter: payees and shares length mismatch',
     );
   });
 
-  it.skip('rejects null payees', async function () {
+  it('rejects null payees', async function () {
     await expectRevert(PaymentSplitter.new([payee1, ZERO_ADDRESS], [20, 30]),
       'PaymentSplitter: account is the zero address',
     );
   });
 
-  it.skip('rejects zero-valued shares', async function () {
+  it('rejects zero-valued shares', async function () {
     await expectRevert(PaymentSplitter.new([payee1, payee2], [20, 0]),
       'PaymentSplitter: shares are 0',
     );
   });
 
-  it.skip('rejects repeated payees', async function () {
+  it('rejects repeated payees', async function () {
     await expectRevert(PaymentSplitter.new([payee1, payee1], [20, 30]),
       'PaymentSplitter: account already has shares',
     );
@@ -80,12 +80,12 @@ contract('PaymentSplitter', function (accounts) {
     });
 
     describe('release', async function () {
-      it.skip('reverts if no funds to claim', async function () {
+      it('reverts if no funds to claim', async function () {
         await expectRevert(this.contract.release(payee1),
           'PaymentSplitter: account is not due payment',
         );
       });
-      it.skip('reverts if non-payee want to claim', async function () {
+      it('reverts if non-payee want to claim', async function () {
         await send.ether(payer1, this.contract.address, amount);
         await expectRevert(this.contract.release(nonpayee1),
           'PaymentSplitter: account has no shares',

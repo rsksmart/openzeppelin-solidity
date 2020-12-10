@@ -46,7 +46,7 @@ contract('GSNRecipientERC20Fee', function (accounts) {
     });
   });
 
-  context.skip('when relay-called', function () {
+  context('when relay-called', function () {
     beforeEach(async function () {
       await gsn.fundRecipient(web3, { recipient: this.recipient.address });
       this.relayHub = await IRelayHub.at('0xD216153c06E857cD7f72665E0aF1d7D82172F494');

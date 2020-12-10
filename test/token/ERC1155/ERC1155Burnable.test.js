@@ -33,7 +33,7 @@ contract('ERC1155Burnable', function (accounts) {
       expect(await this.token.balanceOf(holder, tokenIds[0])).to.be.bignumber.equal('1');
     });
 
-    it.skip('unapproved accounts cannot burn the holder\'s tokens', async function () {
+    it('unapproved accounts cannot burn the holder\'s tokens', async function () {
       await expectRevert(
         this.token.burn(holder, tokenIds[0], amounts[0].subn(1), { from: other }),
         'ERC1155: caller is not owner nor approved',
@@ -57,7 +57,7 @@ contract('ERC1155Burnable', function (accounts) {
       expect(await this.token.balanceOf(holder, tokenIds[1])).to.be.bignumber.equal('2');
     });
 
-    it.skip('unapproved accounts cannot burn the holder\'s tokens', async function () {
+    it('unapproved accounts cannot burn the holder\'s tokens', async function () {
       await expectRevert(
         this.token.burnBatch(holder, tokenIds, [ amounts[0].subn(1), amounts[1].subn(2) ], { from: other }),
         'ERC1155: caller is not owner nor approved',

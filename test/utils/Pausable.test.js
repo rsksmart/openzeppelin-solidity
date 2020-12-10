@@ -23,7 +23,7 @@ contract('Pausable', function (accounts) {
       expect(await this.pausable.count()).to.be.bignumber.equal('1');
     });
 
-    it.skip('cannot take drastic measure in non-pause', async function () {
+    it('cannot take drastic measure in non-pause', async function () {
       await expectRevert(this.pausable.drasticMeasure(),
         'Pausable: not paused',
       );
@@ -39,7 +39,7 @@ contract('Pausable', function (accounts) {
         expectEvent.inLogs(this.logs, 'Paused', { account: pauser });
       });
 
-      it.skip('cannot perform normal process in pause', async function () {
+      it('cannot perform normal process in pause', async function () {
         await expectRevert(this.pausable.normalProcess(), 'Pausable: paused');
       });
 
@@ -48,7 +48,7 @@ contract('Pausable', function (accounts) {
         expect(await this.pausable.drasticMeasureTaken()).to.equal(true);
       });
 
-      it.skip('reverts when re-pausing', async function () {
+      it('reverts when re-pausing', async function () {
         await expectRevert(this.pausable.pause(), 'Pausable: paused');
       });
 
@@ -73,13 +73,13 @@ contract('Pausable', function (accounts) {
             expect(await this.pausable.count()).to.be.bignumber.equal('1');
           });
 
-          it.skip('should prevent drastic measure', async function () {
+          it('should prevent drastic measure', async function () {
             await expectRevert(this.pausable.drasticMeasure(),
               'Pausable: not paused',
             );
           });
 
-          it.skip('reverts when re-unpausing', async function () {
+          it('reverts when re-unpausing', async function () {
             await expectRevert(this.pausable.unpause(), 'Pausable: not paused');
           });
         });
