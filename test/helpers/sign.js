@@ -1,8 +1,3 @@
-const REAL_SIGNATURE_SIZE = 2 * 65; // 65 bytes in hexadecimal string legnth
-const PADDED_SIGNATURE_SIZE = 2 * 96; // 96 bytes in hexadecimal string length
-
-const DUMMY_SIGNATURE = `0x${web3.utils.padLeft('', REAL_SIGNATURE_SIZE)}`;
-
 function toEthSignedMessageHash (messageHex) {
   const messageBuffer = Buffer.from(messageHex.substring(2), 'hex');
   const prefix = Buffer.from(`\u0019Ethereum Signed Message:\n${messageBuffer.length}`);
@@ -41,12 +36,16 @@ const getSignFor = (contract, signer) => (redeemer, methodName, methodArgs = [])
     redeemer,
   ];
 
+  const REAL_SIGNATURE_SIZE = 2 * 65; // 65 bytes in hexadecimal string length
+  const PADDED_SIGNATURE_SIZE = 2 * 96; // 96 bytes in hexadecimal string length
+  const DUMMY_SIGNATURE = `0x${web3.utils.padLeft('', REAL_SIGNATURE_SIZE)}`;
+
   // if we have a method, add it to the parts that we're signing
   if (methodName) {
     if (methodArgs.length > 0) {
       parts.push(
         contract.contract.methods[methodName](...methodArgs.concat([DUMMY_SIGNATURE])).encodeABI()
-          .slice(0, -1 * PADDED_SIGNATURE_SIZE)
+          .slice(0, -1 * PADDED_SIGNATURE_SIZE),
       );
     } else {
       const abi = contract.abi.find(abi => abi.name === methodName);

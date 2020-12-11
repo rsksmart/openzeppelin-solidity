@@ -1,5 +1,8 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
 
+pragma solidity >=0.6.0 <0.8.0;
+
+import "../GSN/Context.sol";
 import "../math/SafeMath.sol";
 
 /**
@@ -15,7 +18,7 @@ import "../math/SafeMath.sol";
  * accounts but kept in this contract, and the actual transfer is triggered as a separate step by calling the {release}
  * function.
  */
-contract PaymentSplitter {
+contract PaymentSplitter is Context {
     using SafeMath for uint256;
 
     event PayeeAdded(address account, uint256 shares);
@@ -36,13 +39,13 @@ contract PaymentSplitter {
      * All addresses in `payees` must be non-zero. Both arrays must have the same non-zero length, and there must be no
      * duplicates in `payees`.
      */
-    constructor (address[] memory payees, uint256[] memory shares) public payable {
+    constructor (address[] memory payees, uint256[] memory shares_) public payable {
         // solhint-disable-next-line max-line-length
-        require(payees.length == shares.length, "PaymentSplitter: payees and shares length mismatch");
+        require(payees.length == shares_.length, "PaymentSplitter: payees and shares length mismatch");
         require(payees.length > 0, "PaymentSplitter: no payees");
 
         for (uint256 i = 0; i < payees.length; i++) {
-            _addPayee(payees[i], shares[i]);
+            _addPayee(payees[i], shares_[i]);
         }
     }
 
@@ -55,8 +58,8 @@ contract PaymentSplitter {
      * https://solidity.readthedocs.io/en/latest/contracts.html#fallback-function[fallback
      * functions].
      */
-    function () external payable {
-        emit PaymentReceived(msg.sender, msg.value);
+    receive () external payable virtual {
+        emit PaymentReceived(_msgSender(), msg.value);
     }
 
     /**
@@ -98,7 +101,7 @@ contract PaymentSplitter {
      * @dev Triggers a transfer to `account` of the amount of Ether they are owed, according to their percentage of the
      * total shares and their previous withdrawals.
      */
-    function release(address payable account) public {
+    function release(address payable account) public virtual {
         require(_shares[account] > 0, "PaymentSplitter: account has no shares");
 
         uint256 totalReceived = address(this).balance.add(_totalReleased);

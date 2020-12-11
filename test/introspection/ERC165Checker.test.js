@@ -1,4 +1,4 @@
-require('openzeppelin-test-helpers');
+require('@openzeppelin/test-helpers');
 
 const { expect } = require('chai');
 
@@ -13,7 +13,7 @@ const DUMMY_UNSUPPORTED_ID = '0xbaddcafe';
 const DUMMY_UNSUPPORTED_ID_2 = '0xbaadcafe';
 const DUMMY_ACCOUNT = '0x1111111111111111111111111111111111111111';
 
-contract('ERC165Checker', function () {
+contract('ERC165Checker', function (accounts) {
   beforeEach(async function () {
     this.mock = await ERC165CheckerMock.new();
   });

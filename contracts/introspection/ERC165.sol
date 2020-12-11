@@ -1,4 +1,6 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.6.0 <0.8.0;
 
 import "./IERC165.sol";
 
@@ -8,7 +10,7 @@ import "./IERC165.sol";
  * Contracts may inherit from this and call {_registerInterface} to declare
  * their support of an interface.
  */
-contract ERC165 is IERC165 {
+abstract contract ERC165 is IERC165 {
     /*
      * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */
@@ -30,7 +32,7 @@ contract ERC165 is IERC165 {
      *
      * Time complexity O(1), guaranteed to always use less than 30 000 gas.
      */
-    function supportsInterface(bytes4 interfaceId) external view returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view override returns (bool) {
         return _supportedInterfaces[interfaceId];
     }
 
@@ -45,7 +47,7 @@ contract ERC165 is IERC165 {
      *
      * - `interfaceId` cannot be the ERC165 invalid interface (`0xffffffff`).
      */
-    function _registerInterface(bytes4 interfaceId) internal {
+    function _registerInterface(bytes4 interfaceId) internal virtual {
         require(interfaceId != 0xffffffff, "ERC165: invalid interface id");
         _supportedInterfaces[interfaceId] = true;
     }
