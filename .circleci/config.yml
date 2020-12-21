@@ -22,7 +22,7 @@ jobs:
                     ./gradlew clean build -x test
       - run:
           name: Install Truffle
-          command: sudo npm install -g truffle
+          command: sudo npm install -g truffle@5.1.56
       - restore_cache:
             keys:
             # when lock file changes, use increasingly general patterns to restore cache
