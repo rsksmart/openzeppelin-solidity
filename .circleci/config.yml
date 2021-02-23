@@ -43,7 +43,7 @@ jobs:
           name: Start RskJ & Run Tests
           command: |
                     npm install
-                    java -Dminer.client.autoMine=true -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-2.2.0-SNAPSHOT-all.jar co.rsk.Start --regtest  nohup &               
+                    java -Dminer.client.autoMine=true -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-3.0.0-SNAPSHOT-all.jar co.rsk.Start --regtest  nohup &               
                     until nc -z 127.0.0.1 4444
                     do
                       echo "Waiting for RskJ..."
