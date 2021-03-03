@@ -9,6 +9,9 @@ parameters:
     branch:
         type: string
         default: "master"
+    slack_channel:
+        type: string
+        default: “integration-tests"
 orbs:
   slack: circleci/slack@4.1
 jobs:
@@ -63,6 +66,7 @@ jobs:
                     done
                     truffle test --network rsk
       - slack/notify:
+          channel: << pipeline.parameters.slack_channel >>
           custom: |
             {
                 "blocks": [
@@ -108,6 +112,7 @@ jobs:
                 }
           event: pass
       - slack/notify:
+          channel: << pipeline.parameters.slack_channel >>
           custom: |
             {
                 "blocks": [
