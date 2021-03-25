@@ -3,7 +3,7 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const { shouldSupportInterfaces } = require('../../introspection/SupportsInterface.behavior');
+const { shouldSupportInterfaces } = require('../../utils/introspection/SupportsInterface.behavior');
 
 const ERC1155ReceiverMock = artifacts.require('ERC1155ReceiverMock');
 
@@ -20,7 +20,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
 
   describe('like an ERC1155', function () {
     describe('balanceOf', function () {
-      it.skip('reverts when queried about the zero address', async function () {
+      it('reverts when queried about the zero address', async function () {
         await expectRevert(
           this.token.balanceOf(ZERO_ADDRESS, firstTokenId),
           'ERC1155: balance query for the zero address',
@@ -82,7 +82,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
     });
 
     describe('balanceOfBatch', function () {
-      it.skip('reverts when input arrays don\'t match up', async function () {
+      it('reverts when input arrays don\'t match up', async function () {
         await expectRevert(
           this.token.balanceOfBatch(
             [firstTokenHolder, secondTokenHolder, firstTokenHolder, secondTokenHolder],
@@ -100,13 +100,13 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when one of the addresses is the zero address', async function () {
+      it('reverts when one of the addresses is the zero address', async function () {
         await expectRevert(
           this.token.balanceOfBatch(
             [firstTokenHolder, secondTokenHolder, ZERO_ADDRESS],
             [firstTokenId, secondTokenId, unknownTokenId],
           ),
-          'ERC1155: batch balance query for the zero address',
+          'ERC1155: balance query for the zero address',
         );
       });
 
@@ -183,7 +183,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         expect(await this.token.isApprovedForAll(multiTokenHolder, proxy)).to.be.equal(false);
       });
 
-      it.skip('reverts if attempting to approve self as an operator', async function () {
+      it('reverts if attempting to approve self as an operator', async function () {
         await expectRevert(
           this.token.setApprovalForAll(multiTokenHolder, true, { from: multiTokenHolder }),
           'ERC1155: setting approval status for self',
@@ -207,7 +207,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when transferring more than balance', async function () {
+      it('reverts when transferring more than balance', async function () {
         await expectRevert(
           this.token.safeTransferFrom(
             multiTokenHolder,
@@ -221,7 +221,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when transferring to zero address', async function () {
+      it('reverts when transferring to zero address', async function () {
         await expectRevert(
           this.token.safeTransferFrom(
             multiTokenHolder,
@@ -288,7 +288,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
             await this.token.setApprovalForAll(proxy, false, { from: multiTokenHolder });
           });
 
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert(
               this.token.safeTransferFrom(multiTokenHolder, recipient, firstTokenId, firstAmount, '0x', {
                 from: proxy,
@@ -407,7 +407,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
           );
         });
 
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.safeTransferFrom(multiTokenHolder, this.receiver.address, firstTokenId, firstAmount, '0x', {
               from: multiTokenHolder,
@@ -425,7 +425,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
           );
         });
 
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.safeTransferFrom(multiTokenHolder, this.receiver.address, firstTokenId, firstAmount, '0x', {
               from: multiTokenHolder,
@@ -436,7 +436,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
       });
 
       context('to a contract that does not implement the required function', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           const invalidReceiver = this.token;
           await expectRevert.unspecified(
             this.token.safeTransferFrom(multiTokenHolder, invalidReceiver.address, firstTokenId, firstAmount, '0x', {
@@ -463,7 +463,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when transferring amount more than any of balances', async function () {
+      it('reverts when transferring amount more than any of balances', async function () {
         await expectRevert(
           this.token.safeBatchTransferFrom(
             multiTokenHolder, recipient,
@@ -475,7 +475,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when ids array length doesn\'t match amounts array length', async function () {
+      it('reverts when ids array length doesn\'t match amounts array length', async function () {
         await expectRevert(
           this.token.safeBatchTransferFrom(
             multiTokenHolder, recipient,
@@ -497,7 +497,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
         );
       });
 
-      it.skip('reverts when transferring to zero address', async function () {
+      it('reverts when transferring to zero address', async function () {
         await expectRevert(
           this.token.safeBatchTransferFrom(
             multiTokenHolder, ZERO_ADDRESS,
@@ -561,7 +561,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
             await this.token.setApprovalForAll(proxy, false, { from: multiTokenHolder });
           });
 
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert(
               this.token.safeBatchTransferFrom(
                 multiTokenHolder, recipient,
@@ -681,7 +681,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
           );
         });
 
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.safeBatchTransferFrom(
               multiTokenHolder, this.receiver.address,
@@ -702,7 +702,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
           );
         });
 
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           await expectRevert(
             this.token.safeBatchTransferFrom(
               multiTokenHolder, this.receiver.address,
@@ -751,7 +751,7 @@ function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, 
       });
 
       context('to a contract that does not implement the required function', function () {
-        it.skip('reverts', async function () {
+        it('reverts', async function () {
           const invalidReceiver = this.token;
           await expectRevert.unspecified(
             this.token.safeBatchTransferFrom(

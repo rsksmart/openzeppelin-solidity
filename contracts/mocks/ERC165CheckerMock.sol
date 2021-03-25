@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
-import "../introspection/ERC165Checker.sol";
+import "../utils/introspection/ERC165Checker.sol";
 
 contract ERC165CheckerMock {
     using ERC165Checker for address;
@@ -17,5 +17,9 @@ contract ERC165CheckerMock {
 
     function supportsAllInterfaces(address account, bytes4[] memory interfaceIds) public view returns (bool) {
         return account.supportsAllInterfaces(interfaceIds);
+    }
+
+    function getSupportedInterfaces(address account, bytes4[] memory interfaceIds) public view returns (bool[] memory) {
+        return account.getSupportedInterfaces(interfaceIds);
     }
 }

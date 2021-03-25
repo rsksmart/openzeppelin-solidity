@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
 import "../utils/Address.sol";
 
@@ -29,6 +29,11 @@ contract AddressImpl {
 
     function functionStaticCall(address target, bytes calldata data) external {
         bytes memory returnData = Address.functionStaticCall(target, data);
+        emit CallReturnValue(abi.decode(returnData, (string)));
+    }
+
+    function functionDelegateCall(address target, bytes calldata data) external {
+        bytes memory returnData = Address.functionDelegateCall(target, data);
         emit CallReturnValue(abi.decode(returnData, (string)));
     }
 

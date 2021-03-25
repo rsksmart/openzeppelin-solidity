@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
-import "../math/Math.sol";
+import "../utils/math/Math.sol";
 
 contract MathMock {
     function max(uint256 a, uint256 b) public pure returns (uint256) {

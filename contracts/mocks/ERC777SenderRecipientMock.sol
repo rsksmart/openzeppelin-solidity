@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
-import "../GSN/Context.sol";
 import "../token/ERC777/IERC777.sol";
 import "../token/ERC777/IERC777Sender.sol";
 import "../token/ERC777/IERC777Recipient.sol";
-import "../introspection/IERC1820Registry.sol";
-import "../introspection/ERC1820Implementer.sol";
+import "../utils/Context.sol";
+import "../utils/introspection/IERC1820Registry.sol";
+import "../utils/introspection/ERC1820Implementer.sol";
 
 contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, ERC1820Implementer {
     event TokensToSendCalled(
@@ -33,6 +33,9 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
         uint256 fromBalance,
         uint256 toBalance
     );
+
+    // Emitted in ERC777Mock. Here for easier decoding
+    event BeforeTokenTransfer();
 
     bool private _shouldRevertSend;
     bool private _shouldRevertReceive;
@@ -147,4 +150,3 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
         token.burn(amount, data);
     }
 }
-
