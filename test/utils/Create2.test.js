@@ -76,13 +76,13 @@ contract('Create2', function (accounts) {
       );
     });
 
-    it.skip('fails deploying a contract if the bytecode length is zero', async function () {
+    it('fails deploying a contract if the bytecode length is zero', async function () {
       await expectRevert(
         this.factory.deploy(0, saltHex, '0x', { from: deployerAccount }), 'Create2: bytecode length is zero',
       );
     });
 
-    it.skip('fails deploying a contract if factory contract does not have sufficient balance', async function () {
+    it('fails deploying a contract if factory contract does not have sufficient balance', async function () {
       await expectRevert(
         this.factory.deploy(1, saltHex, constructorByteCode, { from: deployerAccount }),
         'Create2: insufficient balance',
