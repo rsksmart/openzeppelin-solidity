@@ -10,7 +10,7 @@ const OTHER_ROLE = web3.utils.soliditySha3('OTHER_ROLE');
 function shouldBehaveLikeAccessControl (errorPrefix, admin, authorized, other, otherAdmin, otherAuthorized) {
   shouldSupportInterfaces(['AccessControl']);
 
-  describe.only('default admin', function () {
+  describe('default admin', function () {
     it('deployer has default admin role', async function () {
       expect(await this.accessControl.hasRole(DEFAULT_ADMIN_ROLE, admin)).to.equal(true);
     });
