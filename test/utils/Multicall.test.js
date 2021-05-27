@@ -1,5 +1,6 @@
 const { BN, expectRevert } = require('@openzeppelin/test-helpers');
 const MulticallTokenMock = artifacts.require('MulticallTokenMock');
+const { expect } = require('chai');
 
 contract('MulticallToken', function (accounts) {
   const [deployer, alice, bob] = accounts;
