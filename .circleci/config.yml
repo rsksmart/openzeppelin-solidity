@@ -11,7 +11,7 @@ parameters:
         default: "master"
     slack_channel:
         type: string
-        default: "integration-tests"
+        default: "qa-automated-tests"
 orbs:
   slack: circleci/slack@4.1
 jobs:
@@ -37,7 +37,7 @@ jobs:
                     ./gradlew clean build -x test
       - run:
           name: Install Truffle
-          command: sudo npm install -g truffle@5.1.56
+          command: sudo npm install -g truffle #@5.1.56
       - restore_cache:
             keys:
             # when lock file changes, use increasingly general patterns to restore cache

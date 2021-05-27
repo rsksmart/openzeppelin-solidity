@@ -35,7 +35,7 @@ contract('ERC20', function (accounts) {
     expect(await this.token.decimals()).to.be.bignumber.equal('18');
   });
 
-  describe('_setupDecimals', function () {
+  describe('set decimals', function () {
     const decimals = new BN(6);
 
     it('can set decimals during construction', async function () {
@@ -52,7 +52,7 @@ contract('ERC20', function (accounts) {
 
       function shouldDecreaseApproval (amount) {
         describe('when there was no approved amount before', function () {
-          it.skip('reverts', async function () {
+          it('reverts', async function () {
             await expectRevert(this.token.decreaseAllowance(
               spender, amount, { from: initialHolder }), 'ERC20: decreased allowance below zero',
             );
@@ -87,7 +87,7 @@ contract('ERC20', function (accounts) {
             expect(await this.token.allowance(initialHolder, spender)).to.be.bignumber.equal('0');
           });
 
-          it.skip('reverts when more than the full allowance is removed', async function () {
+          it('reverts when more than the full allowance is removed', async function () {
             await expectRevert(
               this.token.decreaseAllowance(spender, approvedAmount.addn(1), { from: initialHolder }),
               'ERC20: decreased allowance below zero',
@@ -113,7 +113,7 @@ contract('ERC20', function (accounts) {
       const amount = initialSupply;
       const spender = ZERO_ADDRESS;
 
-      it.skip('reverts', async function () {
+      it('reverts', async function () {
         await expectRevert(this.token.decreaseAllowance(
           spender, amount, { from: initialHolder }), 'ERC20: decreased allowance below zero',
         );
@@ -197,7 +197,7 @@ contract('ERC20', function (accounts) {
     describe('when the spender is the zero address', function () {
       const spender = ZERO_ADDRESS;
 
-      it.skip('reverts', async function () {
+      it('reverts', async function () {
         await expectRevert(
           this.token.increaseAllowance(spender, amount, { from: initialHolder }), 'ERC20: approve to the zero address',
         );
@@ -207,7 +207,7 @@ contract('ERC20', function (accounts) {
 
   describe('_mint', function () {
     const amount = new BN(50);
-    it.skip('rejects a null account', async function () {
+    it('rejects a null account', async function () {
       await expectRevert(
         this.token.mint(ZERO_ADDRESS, amount), 'ERC20: mint to the zero address',
       );
@@ -240,13 +240,13 @@ contract('ERC20', function (accounts) {
   });
 
   describe('_burn', function () {
-    it.skip('rejects a null account', async function () {
+    it('rejects a null account', async function () {
       await expectRevert(this.token.burn(ZERO_ADDRESS, new BN(1)),
         'ERC20: burn from the zero address');
     });
 
     describe('for a non zero account', function () {
-      it.skip('rejects burning more than balance', async function () {
+      it('rejects burning more than balance', async function () {
         await expectRevert(this.token.burn(
           initialHolder, initialSupply.addn(1)), 'ERC20: burn amount exceeds balance',
         );
@@ -291,7 +291,7 @@ contract('ERC20', function (accounts) {
     });
 
     describe('when the sender is the zero address', function () {
-      it.skip('reverts', async function () {
+      it('reverts', async function () {
         await expectRevert(this.token.transferInternal(ZERO_ADDRESS, recipient, initialSupply),
           'ERC20: transfer from the zero address',
         );
@@ -305,7 +305,7 @@ contract('ERC20', function (accounts) {
     });
 
     describe('when the owner is the zero address', function () {
-      it.skip('reverts', async function () {
+      it('reverts', async function () {
         await expectRevert(this.token.approveInternal(ZERO_ADDRESS, recipient, initialSupply),
           'ERC20: approve from the zero address',
         );

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
-import "../utils/EnumerableSet.sol";
+import "../utils/structs/EnumerableSet.sol";
 
 // Bytes32Set
 contract EnumerableBytes32SetMock {

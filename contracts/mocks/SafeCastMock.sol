@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity ^0.8.0;
 
-import "../utils/SafeCast.sol";
+import "../utils/math/SafeCast.sol";
 
 contract SafeCastMock {
     using SafeCast for uint;
