@@ -3,7 +3,7 @@ const shouldBehaveLikeTransparentUpgradeableProxy = require('./TransparentUpgrad
 
 const TransparentUpgradeableProxy = artifacts.require('TransparentUpgradeableProxy');
 
-contract('TransparentUpgradeableProxy', function (accounts) {
+contract.skip('TransparentUpgradeableProxy', function (accounts) {
   const [proxyAdminAddress, proxyAdminOwner] = accounts;
 
   const createProxy = async function (logic, admin, initData, opts) {
