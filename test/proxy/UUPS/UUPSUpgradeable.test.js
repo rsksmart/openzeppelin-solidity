@@ -5,6 +5,7 @@ const UUPSUpgradeableMock = artifacts.require('UUPSUpgradeableMock');
 const UUPSUpgradeableUnsafeMock = artifacts.require('UUPSUpgradeableUnsafeMock');
 const UUPSUpgradeableBrokenMock = artifacts.require('UUPSUpgradeableBrokenMock');
 const CountersImpl = artifacts.require('CountersImpl');
+const expect = require('chai').expect;
 
 contract('UUPSUpgradeable', function (accounts) {
   before(async function () {

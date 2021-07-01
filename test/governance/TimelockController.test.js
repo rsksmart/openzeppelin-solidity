@@ -42,7 +42,7 @@ function genOperationBatch (targets, values, datas, predecessor, salt) {
   return { id, targets, values, datas, predecessor, salt };
 }
 
-contract('TimelockController', function (accounts) {
+contract.skip('TimelockController', function (accounts) {
   const [ admin, proposer, executor, other ] = accounts;
 
   beforeEach(async function () {
