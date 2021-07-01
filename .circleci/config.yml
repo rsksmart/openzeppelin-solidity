@@ -11,7 +11,7 @@ parameters:
         default: "master"
     slack_channel:
         type: string
-        default: "qa-automated-tests"
+        default: "integration-tests"
 orbs:
   slack: circleci/slack@4.1
 jobs:
