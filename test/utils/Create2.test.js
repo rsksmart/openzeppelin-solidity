@@ -69,7 +69,7 @@ contract('Create2', function (accounts) {
       expect(await balance.current(onChainComputed)).to.be.bignumber.equal(deposit);
     });
 
-    it.skip('fails deploying a contract in an existent address', async function () {
+    it('fails deploying a contract in an existent address', async function () {
       await this.factory.deploy(0, saltHex, constructorByteCode, { from: deployerAccount });
       await expectRevert(
         this.factory.deploy(0, saltHex, constructorByteCode, { from: deployerAccount }), 'Create2: Failed on deploy',

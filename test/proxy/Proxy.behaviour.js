@@ -33,7 +33,7 @@ module.exports = function shouldBehaveLikeProxy (createProxy, proxyAdminAddress,
       expect(implementation).to.be.equal(this.implementation);
     });
 
-    it.skip('initializes the proxy', async function () {
+    it('initializes the proxy', async function () {
       const dummy = new DummyImplementation(this.proxy);
       expect(await dummy.value()).to.be.bignumber.equal(value.toString());
     });
