@@ -135,7 +135,7 @@ contract('Address', function (accounts) {
         );
       });
 
-      it('reverts when the called function runs out of gas', async function () {
+      it.skip('reverts when the called function runs out of gas', async function () {
         const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
           name: 'mockFunctionOutOfGas',
           type: 'function',
@@ -294,7 +294,7 @@ contract('Address', function (accounts) {
       expectEvent(receipt, 'CallReturnValue', { data: '0x1234' });
     });
 
-    it('reverts on a non-static function', async function () {
+    it.skip('reverts on a non-static function', async function () {
       const abiEncodedCall = web3.eth.abi.encodeFunctionCall({
         name: 'mockFunction',
         type: 'function',
