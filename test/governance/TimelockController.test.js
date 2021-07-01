@@ -42,7 +42,7 @@ function genOperationBatch (targets, values, datas, predecessor, salt) {
   return { id, targets, values, datas, predecessor, salt };
 }
 
-contract('TimelockController', function (accounts) {
+contract.skip('TimelockController', function (accounts) {
   const [ admin, proposer, executor, other ] = accounts;
 
   beforeEach(async function () {
@@ -270,7 +270,7 @@ contract('TimelockController', function (accounts) {
               await time.increaseTo(timestamp);
             });
 
-            it.skip('executor can reveal', async function () {
+            it('executor can reveal', async function () {
               const receipt = await this.timelock.execute(
                 this.operation.target,
                 this.operation.value,
@@ -507,7 +507,7 @@ contract('TimelockController', function (accounts) {
               await time.increaseTo(timestamp);
             });
 
-            it.skip('executor can reveal', async function () {
+            it('executor can reveal', async function () {
               const receipt = await this.timelock.executeBatch(
                 this.operation.targets,
                 this.operation.values,
@@ -680,7 +680,7 @@ contract('TimelockController', function (accounts) {
       );
     });
 
-    it.skip('timelock scheduled maintenance', async function () {
+    it('timelock scheduled maintenance', async function () {
       const newDelay = time.duration.hours(6);
       const operation = genOperation(
         this.timelock.address,
@@ -765,7 +765,7 @@ contract('TimelockController', function (accounts) {
       );
     });
 
-    it.skip('can execute after dependency', async function () {
+    it('can execute after dependency', async function () {
       await this.timelock.execute(
         this.operation1.target,
         this.operation1.value,
@@ -788,7 +788,7 @@ contract('TimelockController', function (accounts) {
   describe('usage scenario', function () {
     this.timeout(10000);
 
-    it.skip('call', async function () {
+    it('call', async function () {
       const operation = genOperation(
         this.implementation2.address,
         0,
@@ -883,7 +883,7 @@ contract('TimelockController', function (accounts) {
       );
     });
 
-    it.skip('call out of gas', async function () {
+    it('call out of gas', async function () {
       const operation = genOperation(
         this.callreceivermock.address,
         0,
@@ -915,7 +915,7 @@ contract('TimelockController', function (accounts) {
       );
     });
 
-    it.skip('call payable with eth', async function () {
+    it('call payable with eth', async function () {
       const operation = genOperation(
         this.callreceivermock.address,
         1,

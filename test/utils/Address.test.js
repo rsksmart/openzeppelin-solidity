@@ -29,7 +29,7 @@ contract('Address', function (accounts) {
     });
 
     context('when sender contract has no funds', function () {
-      it.skip('sends 0 wei', async function () {
+      it('sends 0 wei', async function () {
         await this.mock.sendValue(other, 0);
 
         expect(await this.recipientTracker.delta()).to.be.bignumber.equal('0');
@@ -46,17 +46,17 @@ contract('Address', function (accounts) {
         await send.ether(other, this.mock.address, funds);
       });
 
-      it.skip('sends 0 wei', async function () {
+      it('sends 0 wei', async function () {
         await this.mock.sendValue(recipient, 0);
         expect(await this.recipientTracker.delta()).to.be.bignumber.equal('0');
       });
 
-      it.skip('sends non-zero amounts', async function () {
+      it('sends non-zero amounts', async function () {
         await this.mock.sendValue(recipient, funds.subn(1));
         expect(await this.recipientTracker.delta()).to.be.bignumber.equal(funds.subn(1));
       });
 
-      it.skip('sends the whole balance', async function () {
+      it('sends the whole balance', async function () {
         await this.mock.sendValue(recipient, funds);
         expect(await this.recipientTracker.delta()).to.be.bignumber.equal(funds);
         expect(await balance.current(this.mock.address)).to.be.bignumber.equal('0');
